@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
@@ -19,10 +21,10 @@ class Account extends Model
 
 
     public function transactions(): HasMany {
-        return hasMany(Account::class);
+        return $this->hasMany(Account::class);
     }
 
     public function user(): BelongsTo {
-        return belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
@@ -18,7 +19,7 @@ class Transaction extends Model
         'account_id'
     ];
 
-    public function account(): belongsTo {
-        return belongsTo(Account::class);
+    public function account(): BelongsTo {
+        return $this->belongsTo(Account::class);
     }
 }
