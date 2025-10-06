@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard, accounts } from '@/routes';
@@ -11,9 +12,23 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/components/ui/table';
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 import { Button } from '@/components/ui/button';
+
+defineProps({
+    userAccounts: Object,
+});
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,7 +40,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: accounts().url,
     }
 ];
-
 </script>
 
 <template>
@@ -39,32 +53,29 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
             <div class="h-full">
                 <Table>
-                    <TableCaption>A list of your recent invoices.</TableCaption>
+                    <TableCaption>Your account.</TableCaption>
                     <TableHeader>
                     <TableRow>
-                        <TableHead class="w-[100px]">
-                        Invoice
+                        <TableHead>
+                        Account
                         </TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Method</TableHead>
-                        <TableHead class="text-right">
-                        Amount
-                        </TableHead>
+                        <TableHead>Account Number</TableHead>
+                        <TableHead>Balance</TableHead>
                     </TableRow>
                     </TableHeader>
                     <TableBody>
-                    <TableRow>
+                    <TableRow v-for="account in userAccounts">
                         <TableCell class="font-medium">
-                        INV001
+                        {{ account.account_name }}
                         </TableCell>
-                        <TableCell>Paid</TableCell>
-                        <TableCell>Credit Card</TableCell>
-                        <TableCell class="text-right">
-                        $250.00
-                        </TableCell>
+                        <TableCell>{{ account.account_number }}</TableCell>
+                        <TableCell>{{account.currency + account.balance }}</TableCell> 
                     </TableRow>
                     </TableBody>
                 </Table>
+            </div>
+            <div>
+                
             </div>
         </div>
     </AppLayout>
