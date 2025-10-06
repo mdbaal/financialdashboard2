@@ -17,6 +17,7 @@ class Account extends Model
         'account_number',
         'balance',
         'currency',
+        'user_id'
     ];
 
 

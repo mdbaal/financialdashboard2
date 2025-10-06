@@ -1,9 +1,9 @@
 
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { dashboard, accounts } from '@/routes';
+import { dashboard, accounts,  } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Form, Head } from '@inertiajs/vue3';
 import {
   Table,
   TableBody,
@@ -26,8 +26,11 @@ import {
 
 import { Button } from '@/components/ui/button';
 
+import { store } from '@/routes/accounts/';
+ 
 defineProps({
     userAccounts: Object,
+    currencyOptions: Object,
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -47,9 +50,47 @@ const breadcrumbs: BreadcrumbItem[] = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-10 h-full">
-            <div class="flex justify-between my-5">
+            <div class="flex justify-between my-5 ">
                 <h2 class="text-2xl">Accounts</h2>
-                <Button>Create new</Button>
+                <div>
+                    <Dialog>
+                        <DialogTrigger>
+                            <Button variant="secondary">Create new</Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>
+                                    Create new Account
+                                </DialogTitle>
+                                <DialogDescription>
+                                    Use the form to create a new account
+                                </DialogDescription>
+                            </DialogHeader>
+
+                            <Form :action="store()" class="flex flex-col gap-5" #default="{ errors }">
+                                <div class="flex flex-col">
+                                    <input class="border rounded p-2"  type="text" name="account_name" required/>
+                                    <span class="text-red-500 font-bold text-sm" v-if="errors['account_name']">{{ errors['account_name'] }}</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <input class="border rounded p-2"  type="text" name="account_number" required/>
+                                    <span class="text-red-500 font-bold text-sm" v-if="errors['account_number']">{{ errors['account_number'] }}</span>
+                                </div>
+
+                                <select  class="border rounded p-2" name="currency">
+                                    <option v-for="currency in currencyOptions" :value="currency.value">
+                                        {{ currency.name }}
+                                    </option>
+                                </select>
+                                <button type="submit">Save</button>
+                            </Form>
+
+                            <DialogFooter>
+
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </div>
             <div class="h-full">
                 <Table>
@@ -74,9 +115,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </TableBody>
                 </Table>
             </div>
-            <div>
-                
-            </div>
+            
         </div>
     </AppLayout>
 </template>

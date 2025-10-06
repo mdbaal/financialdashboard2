@@ -14,6 +14,7 @@ Route::get('dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard/')->group(function () {
     Route::get('accounts', [AccountController::class,'index'])->name("accounts");
+    Route::put('accounts',[AccountController::class,'store'])->name('accounts.store');
 });
 
 require __DIR__.'/settings.php';

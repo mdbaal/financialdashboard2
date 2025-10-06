@@ -286,7 +286,7 @@ dashboard.form = dashboardForm
 
 /**
 * @see \App\Http\Controllers\AccountController::accounts
-* @see app/Http/Controllers/AccountController.php:12
+* @see app/Http/Controllers/AccountController.php:18
 * @route '/dashboard/accounts'
 */
 export const accounts = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -301,7 +301,7 @@ accounts.definition = {
 
 /**
 * @see \App\Http\Controllers\AccountController::accounts
-* @see app/Http/Controllers/AccountController.php:12
+* @see app/Http/Controllers/AccountController.php:18
 * @route '/dashboard/accounts'
 */
 accounts.url = (options?: RouteQueryOptions) => {
@@ -310,7 +310,7 @@ accounts.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AccountController::accounts
-* @see app/Http/Controllers/AccountController.php:12
+* @see app/Http/Controllers/AccountController.php:18
 * @route '/dashboard/accounts'
 */
 accounts.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -320,7 +320,7 @@ accounts.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\AccountController::accounts
-* @see app/Http/Controllers/AccountController.php:12
+* @see app/Http/Controllers/AccountController.php:18
 * @route '/dashboard/accounts'
 */
 accounts.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -330,7 +330,7 @@ accounts.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\AccountController::accounts
-* @see app/Http/Controllers/AccountController.php:12
+* @see app/Http/Controllers/AccountController.php:18
 * @route '/dashboard/accounts'
 */
 const accountsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -340,7 +340,7 @@ const accountsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> =
 
 /**
 * @see \App\Http\Controllers\AccountController::accounts
-* @see app/Http/Controllers/AccountController.php:12
+* @see app/Http/Controllers/AccountController.php:18
 * @route '/dashboard/accounts'
 */
 accountsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -350,7 +350,7 @@ accountsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 
 /**
 * @see \App\Http\Controllers\AccountController::accounts
-* @see app/Http/Controllers/AccountController.php:12
+* @see app/Http/Controllers/AccountController.php:18
 * @route '/dashboard/accounts'
 */
 accountsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
