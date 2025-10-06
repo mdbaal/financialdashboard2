@@ -19,7 +19,7 @@ class AccountFactory extends Factory
         return [
             'account_name' => fake()->name(),
             'account_number' => 'NL00RABO0000000000',
-            'balance' => fake()->randomFLoat(2,-500,500),
+            'balance' => fake()->randomFloat(2,-500,500),
             'currency' => '€',
             'user_id' => 1
         ];
