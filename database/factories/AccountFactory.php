@@ -17,8 +17,8 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         return [
-            'account_name' => fake()->name(),
-            'account_number' => 'NL00RABO0000000000',
+            'account_name' => fake()->unique()->name(),
+            'account_number' => 'NL00RABO' . fake()->unique()->numberBetween(0,100),
             'balance' => fake()->randomFloat(2,-500,500),
             'currency' => '€',
             'user_id' => 1
