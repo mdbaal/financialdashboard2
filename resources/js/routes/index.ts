@@ -285,6 +285,80 @@ dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> =
 dashboard.form = dashboardForm
 
 /**
+* @see routes/web.php:15
+* @route '/dashboard/accounts'
+*/
+export const accounts = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: accounts.url(options),
+    method: 'get',
+})
+
+accounts.definition = {
+    methods: ["get","head"],
+    url: '/dashboard/accounts',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see routes/web.php:15
+* @route '/dashboard/accounts'
+*/
+accounts.url = (options?: RouteQueryOptions) => {
+    return accounts.definition.url + queryParams(options)
+}
+
+/**
+* @see routes/web.php:15
+* @route '/dashboard/accounts'
+*/
+accounts.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: accounts.url(options),
+    method: 'get',
+})
+
+/**
+* @see routes/web.php:15
+* @route '/dashboard/accounts'
+*/
+accounts.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: accounts.url(options),
+    method: 'head',
+})
+
+/**
+* @see routes/web.php:15
+* @route '/dashboard/accounts'
+*/
+const accountsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: accounts.url(options),
+    method: 'get',
+})
+
+/**
+* @see routes/web.php:15
+* @route '/dashboard/accounts'
+*/
+accountsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: accounts.url(options),
+    method: 'get',
+})
+
+/**
+* @see routes/web.php:15
+* @route '/dashboard/accounts'
+*/
+accountsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: accounts.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+accounts.form = accountsForm
+
+/**
 * @see \App\Http\Controllers\Auth\RegisteredUserController::register
 * @see app/Http/Controllers/Auth/RegisteredUserController.php:21
 * @route '/register'
