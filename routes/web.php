@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,9 +13,7 @@ Route::get('dashboard', function () {
 })->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard/')->group(function () {
-    Route::get('accounts', function () {
-      return Inertia::render('account/Accounts'); 
-    })->name("accounts");
+    Route::get('accounts', [AccountController::class,'index'])->name("accounts");
 });
 
 require __DIR__.'/settings.php';
