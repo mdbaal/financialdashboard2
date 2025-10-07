@@ -22,7 +22,7 @@ class Account extends Model
 
 
     public function transactions(): HasMany {
-        return $this->hasMany(Account::class);
+        return $this->hasMany(Transaction::class);
     }
 
     public function user(): BelongsTo {
