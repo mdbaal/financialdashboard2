@@ -15,6 +15,18 @@ import { Button } from '../ui/button';
 import { Form } from '@inertiajs/vue3';
 
 import { store } from '@/routes/accounts';
+import InputError from '../InputError.vue';
+import { Input } from '../ui/input';
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 defineProps({
     currencyOptions: Object
@@ -41,20 +53,25 @@ const dialogOpen = ref(false);
 
                 <Form :action="store()" class="flex flex-col gap-5" #default="{ errors }" @success="dialogOpen = false">
                     <div class="flex flex-col">
-                        <input class="border rounded p-2"  type="text" name="account_name" required/>
-                        <span class="text-red-500 font-bold text-sm" v-if="errors['account_name']">{{ errors['account_name'] }}</span>
+                        <Input class="border rounded p-2" type="text" name="account_name" required/>
+                        <InputError :message="errors['account_name']"/>
                     </div>
                     <div class="flex flex-col">
-                        <input class="border rounded p-2"  type="text" name="account_number" required/>
-                        <span class="text-red-500 font-bold text-sm" v-if="errors['account_number']">{{ errors['account_number'] }}</span>
+                        <Input class="border rounded p-2"  type="text" name="account_number" required/>
+                        <InputError :message="errors['account_number']"/>
                     </div>
                     <div class="flex flex-col">
-                        <select  class="border rounded p-2" name="currency">
-                            <option v-for="currency in currencyOptions" :value="currency.value">
-                                {{ currency.name }}
-                            </option>
-                        </select>
-                        <span class="text-red-500 font-bold text-sm" v-if="errors['currency']">{{ errors['currency'] }}</span>
+                        <Select name="currency">
+                            <SelectTrigger>
+                            <SelectValue placeholder="Select a currency" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem v-for="currency in currencyOptions" :value="currency.value">
+                                    {{ currency.name }}
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <InputError :message="errors['currency']"/>
                     </div>
                     <div class="justify-end flex"><Button type="submit" variant="secondary">Save</Button></div>
                 </Form>
