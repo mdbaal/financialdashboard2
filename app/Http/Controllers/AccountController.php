@@ -4,22 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Enums\CurrencyTypes;
 use App\Models\Account;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
-use function Illuminate\Support\enum_value;
-use function Pest\Laravel\options;
+use Illuminate\Validation\Rule;
 
 class AccountController extends Controller
 {
     
     public function index(){
         $accounts = Auth::user()->accounts;
-        $currencyOptions = array_map(function($enum){
-            return ['name' => $enum->name, 'value' => $enum->value];
-        },CurrencyTypes::cases());
+        $currencyOptions = $this->getCurrencyOptions();
 
         return Inertia::render('account/Accounts',
         [
@@ -33,7 +28,7 @@ class AccountController extends Controller
         $validated = $request->validate([
             'account_name' => 'required|alpha_num|max:50',
             'account_number' => 'required|alpha_num|max:50',
-            'currency' => ['required'],
+            'currency' => ['required', Rule::in($this->getCurrencyOptions("value"))],
         ]);
 
         $validated['balance'] = 0;
@@ -42,5 +37,23 @@ class AccountController extends Controller
         Account::create($validated);
         
         return redirect(route('accounts'));
+    }
+
+    private function getCurrencyOptions($type = null){
+        if($type == "key"){
+            return array_map(function($enum){
+                return $enum->name;
+            },CurrencyTypes::cases());
+        }
+
+        if($type == "value"){
+            return array_map(function($enum){
+                return $enum->value;
+            },CurrencyTypes::cases());
+        }
+
+        return array_map(function($enum){
+            return ['name' => $enum->name, 'value' => $enum->value];
+        },CurrencyTypes::cases());
     }
 }
