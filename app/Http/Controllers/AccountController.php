@@ -24,6 +24,18 @@ class AccountController extends Controller
         ]);
     }
 
+    public function show(int $id){
+        $account = Account::findOrFail($id);
+
+        $transactions = $account->transactions;
+
+        return Inertia::render('account/Show',
+        [
+            'accountViewed' => $account,
+            'transactions' => $transactions
+        ]);
+    }
+
 
     public function store(Request $request){
         $validated = $request->validate([
