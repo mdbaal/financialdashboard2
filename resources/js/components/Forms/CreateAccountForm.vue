@@ -48,12 +48,14 @@ const dialogOpen = ref(false);
                         <input class="border rounded p-2"  type="text" name="account_number" required/>
                         <span class="text-red-500 font-bold text-sm" v-if="errors['account_number']">{{ errors['account_number'] }}</span>
                     </div>
-
-                    <select  class="border rounded p-2" name="currency">
-                        <option v-for="currency in currencyOptions" :value="currency.value">
-                            {{ currency.name }}
-                        </option>
-                    </select>
+                    <div class="flex flex-col">
+                        <select  class="border rounded p-2" name="currency">
+                            <option v-for="currency in currencyOptions" :value="currency.value">
+                                {{ currency.name }}
+                            </option>
+                        </select>
+                        <span class="text-red-500 font-bold text-sm" v-if="errors['currency']">{{ errors['currency'] }}</span>
+                    </div>
                     <div class="justify-end flex"><Button type="submit" variant="secondary">Save</Button></div>
                 </Form>
             </DialogContent>
