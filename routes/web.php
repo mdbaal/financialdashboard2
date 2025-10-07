@@ -15,6 +15,7 @@ Route::get('dashboard', function () {
 Route::middleware(['auth', 'verified'])->prefix('dashboard/')->group(function () {
     Route::get('accounts', [AccountController::class,'index'])->name("accounts");
     Route::put('accounts',[AccountController::class,'store'])->name('accounts.store');
+    Route::delete('accounts',[AccountController::class,'destroy'])->name('accounts.destroy');
 });
 
 require __DIR__.'/settings.php';

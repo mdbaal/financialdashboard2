@@ -3,7 +3,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard, accounts,  } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, Form } from '@inertiajs/vue3';
 import {
   Table,
   TableBody,
@@ -14,6 +14,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import CreateAccountForm from '@/components/Forms/CreateAccountForm.vue';
+import { Ellipsis, Delete } from 'lucide-vue-next';
+import { destroy } from '@/routes/accounts';
 
 defineProps({
     userAccounts: Object,
@@ -52,6 +54,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         </TableHead>
                         <TableHead>Account Number</TableHead>
                         <TableHead>Balance</TableHead>
+                        <TableHead><Ellipsis /></TableHead>
                     </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -60,7 +63,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                         {{ account.account_name }}
                         </TableCell>
                         <TableCell>{{ account.account_number }}</TableCell>
-                        <TableCell>{{account.currency + account.balance }}</TableCell> 
+                        <TableCell>{{account.currency + account.balance }}</TableCell>
+                        <TableCell>
+                            <Form :action="destroy()">
+                                <input name="id" hidden :value="account.id"/>
+                                <button type="submit"><Delete/></button>
+                            </Form>
+                        </TableCell> 
                     </TableRow>
                     </TableBody>
                 </Table>

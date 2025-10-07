@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\CurrencyTypes;
 use App\Models\Account;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -36,6 +37,16 @@ class AccountController extends Controller
 
         Account::create($validated);
         
+        return redirect(route('accounts'));
+    }
+
+    public function destroy(Request $request){
+        $validated = $request->validate([
+            'id' => 'required|exists:App\Models\Account,id'
+        ]);
+
+        Account::find($validated['id'])->delete();
+
         return redirect(route('accounts'));
     }
 
