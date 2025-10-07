@@ -26,8 +26,8 @@ class AccountController extends Controller
 
     public function store(Request $request){
         $validated = $request->validate([
-            'account_name' => 'required|alpha_num|max:50',
-            'account_number' => 'required|alpha_num|max:50',
+            'account_name' => 'required|alpha_num|max:50|unique:App\Models\Account',
+            'account_number' => 'required|alpha_num|max:50|unique:App\Models\Account',
             'currency' => ['required', Rule::in($this->getCurrencyOptions("value"))],
         ]);
 
