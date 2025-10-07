@@ -4,6 +4,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard, accounts,  } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Form, Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import {
   Table,
   TableBody,
@@ -43,6 +44,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: accounts().url,
     }
 ];
+
+const dialogOpen = ref(false);
 </script>
 
 <template>
@@ -53,7 +56,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="flex justify-between my-5 ">
                 <h2 class="text-2xl">Accounts</h2>
                 <div>
-                    <Dialog>
+                    <Dialog v-model:open="dialogOpen">
                         <DialogTrigger>
                             <Button variant="secondary">Create new</Button>
                         </DialogTrigger>
@@ -67,7 +70,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 </DialogDescription>
                             </DialogHeader>
 
-                            <Form :action="store()" class="flex flex-col gap-5" #default="{ errors }">
+                            <Form :action="store()" class="flex flex-col gap-5" #default="{ errors }" @success="dialogOpen = false">
                                 <div class="flex flex-col">
                                     <input class="border rounded p-2"  type="text" name="account_name" required/>
                                     <span class="text-red-500 font-bold text-sm" v-if="errors['account_name']">{{ errors['account_name'] }}</span>
