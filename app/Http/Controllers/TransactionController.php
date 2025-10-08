@@ -9,9 +9,10 @@ use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
 {
-    public function store(Request $request){
+    public function store(Request $request, int $account_id){
+        $account = Account::findOrFail($account_id);
+
         $validated = $request->validate([
-            'account_id' => ['required', 'exists:accounts,id'],
             'name' => ['required', 'string','max:255','min:3'],
             'description' => ['string','max:500',],
             'amount' => ['required', 'max:8' ,'decimal:2', 'gt:0'],
@@ -20,7 +21,6 @@ class TransactionController extends Controller
             stopOnFirstFailure: true,
         );
 
-        $account = Account::find($validated['account_id']);
 
         $validated['currency'] = $account->currency;
 

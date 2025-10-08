@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard/')->group(function ()
     Route::patch('accounts/{account}',[AccountController::class, 'update'])->name('accounts.update');
     Route::delete('accounts',[AccountController::class,'destroy'])->name('accounts.destroy');
 
-    Route::put('accounts/{account}/transactions',[TransactionController::class,'create'])->name('transactions.create');
+    Route::put('accounts/{account}/transactions',[TransactionController::class,'store'])->name('transactions.store');
     Route::patch('accounts/{account}/transactions',[TransactionController::class,'update'])->name('transactions.update');
     Route::delete('accounts/{account}/transactions',[TransactionController::class,'destroy'])->name('transactions.destroy');
 });

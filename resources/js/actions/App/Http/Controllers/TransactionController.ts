@@ -1,25 +1,25 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
-* @see \App\Http\Controllers\TransactionController::create
-* @see app/Http/Controllers/TransactionController.php:0
+* @see \App\Http\Controllers\TransactionController::store
+* @see app/Http/Controllers/TransactionController.php:12
 * @route '/dashboard/accounts/{account}/transactions'
 */
-export const create = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
-    url: create.url(args, options),
+export const store = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: store.url(args, options),
     method: 'put',
 })
 
-create.definition = {
+store.definition = {
     methods: ["put"],
     url: '/dashboard/accounts/{account}/transactions',
 } satisfies RouteDefinition<["put"]>
 
 /**
-* @see \App\Http\Controllers\TransactionController::create
-* @see app/Http/Controllers/TransactionController.php:0
+* @see \App\Http\Controllers\TransactionController::store
+* @see app/Http/Controllers/TransactionController.php:12
 * @route '/dashboard/accounts/{account}/transactions'
 */
-create.url = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions) => {
+store.url = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { account: args }
     }
@@ -36,28 +36,28 @@ create.url = (args: { account: string | number } | [account: string | number ] |
         account: args.account,
     }
 
-    return create.definition.url
+    return store.definition.url
             .replace('{account}', parsedArgs.account.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\TransactionController::create
-* @see app/Http/Controllers/TransactionController.php:0
+* @see \App\Http\Controllers\TransactionController::store
+* @see app/Http/Controllers/TransactionController.php:12
 * @route '/dashboard/accounts/{account}/transactions'
 */
-create.put = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
-    url: create.url(args, options),
+store.put = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: store.url(args, options),
     method: 'put',
 })
 
 /**
-* @see \App\Http\Controllers\TransactionController::create
-* @see app/Http/Controllers/TransactionController.php:0
+* @see \App\Http\Controllers\TransactionController::store
+* @see app/Http/Controllers/TransactionController.php:12
 * @route '/dashboard/accounts/{account}/transactions'
 */
-const createForm = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: create.url(args, {
+const storeForm = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PUT',
             ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -67,12 +67,12 @@ const createForm = (args: { account: string | number } | [account: string | numb
 })
 
 /**
-* @see \App\Http\Controllers\TransactionController::create
-* @see app/Http/Controllers/TransactionController.php:0
+* @see \App\Http\Controllers\TransactionController::store
+* @see app/Http/Controllers/TransactionController.php:12
 * @route '/dashboard/accounts/{account}/transactions'
 */
-createForm.put = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: create.url(args, {
+storeForm.put = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PUT',
             ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -81,7 +81,7 @@ createForm.put = (args: { account: string | number } | [account: string | number
     method: 'post',
 })
 
-create.form = createForm
+store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\TransactionController::update
@@ -251,6 +251,6 @@ destroyForm.delete = (args: { account: string | number } | [account: string | nu
 
 destroy.form = destroyForm
 
-const TransactionController = { create, update, destroy }
+const TransactionController = { store, update, destroy }
 
 export default TransactionController
