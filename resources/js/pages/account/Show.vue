@@ -15,13 +15,15 @@ import {
 } from '@/components/ui/table';
 import account from '@/routes/account';
 import { Ellipsis } from 'lucide-vue-next';
+import EditAccountForm from '@/components/forms/account/EditAccountForm.vue';
 
 const props = defineProps({
     accountViewed: {
         type: Object,
         required: true
     },
-    transactions: Object
+    transactions: Object,
+    currencyOptions: Object,
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -49,6 +51,9 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div class="p-10 h-full">
             <div class="flex justify-between my-5 ">
                 <h2 class="text-2xl">{{ accountViewed.account_name }}</h2>
+            </div>
+            <div>
+                <EditAccountForm :current-account="accountViewed" :currency-options="currencyOptions"/>
             </div>
              <Table>
                     <TableCaption>Transactions</TableCaption>
