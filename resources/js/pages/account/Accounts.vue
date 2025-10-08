@@ -16,7 +16,7 @@ import {
 import CreateAccountForm from '@/components/forms/account/CreateAccountForm.vue';
 import { Ellipsis, Delete } from 'lucide-vue-next';
 import { destroy } from '@/routes/accounts';
-import { show } from '@/routes/account';
+import { show } from '@/routes/accounts';
 
 defineProps({
     userAccounts: Object,
