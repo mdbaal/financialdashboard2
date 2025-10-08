@@ -1,10 +1,12 @@
 import Auth from './Auth'
 import AccountController from './AccountController'
+import TransactionController from './TransactionController'
 import Settings from './Settings'
 
 const Controllers = {
     Auth: Object.assign(Auth, Auth),
     AccountController: Object.assign(AccountController, AccountController),
+    TransactionController: Object.assign(TransactionController, TransactionController),
     Settings: Object.assign(Settings, Settings),
 }
 

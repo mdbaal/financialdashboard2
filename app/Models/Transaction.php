@@ -16,7 +16,8 @@ class Transaction extends Model
         'description',
         'amount',
         'currency',
-        'account_id'
+        'account_id',
+        'custom_id',
     ];
 
     public function account(): BelongsTo {

@@ -15,10 +15,11 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->decimal('amount', 8, 2);
             $table->string('currency',5)->default('€');
             $table->foreignIdFor(Account::class)->constrained()->cascadeOnDelete();
+            $table->string('custom_id')->unique()->nullable();
             $table->timestamps();
         });
     }
