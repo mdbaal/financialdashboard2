@@ -3,7 +3,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard, accounts,  } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Form } from '@inertiajs/vue3';
+import { Head, Form, Link } from '@inertiajs/vue3';
 import {
   Table,
   TableBody,
@@ -16,6 +16,7 @@ import {
 import CreateAccountForm from '@/components/forms/account/CreateAccountForm.vue';
 import { Ellipsis, Delete } from 'lucide-vue-next';
 import { destroy } from '@/routes/accounts';
+import account, { show } from '@/routes/account';
 
 defineProps({
     userAccounts: Object,
@@ -58,19 +59,19 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </TableRow>
                     </TableHeader>
                     <TableBody>
-                    <TableRow v-for="account in userAccounts">
-                        <TableCell class="font-medium">
-                        {{ account.account_name }}
-                        </TableCell>
-                        <TableCell>{{ account.account_number }}</TableCell>
-                        <TableCell>{{account.currency + account.balance }}</TableCell>
-                        <TableCell>
-                            <Form :action="destroy()">
-                                <input name="id" hidden :value="account.id"/>
-                                <button type="submit"><Delete/></button>
-                            </Form>
-                        </TableCell> 
-                    </TableRow>
+                        <TableRow v-for="account in userAccounts">
+                            <TableCell class="font-medium">
+                            <Link :href="show(account.id)" class="block">{{ account.account_name }}</Link>
+                            </TableCell>
+                            <TableCell>{{ account.account_number }}</TableCell>
+                            <TableCell>{{account.currency + account.balance }}</TableCell>
+                            <TableCell class="w-[10px]">
+                                <Form :action="destroy()">
+                                    <input name="id" hidden :value="account.id"/>
+                                    <button class="hover:cursor-pointer" type="submit"><Delete/></button>
+                                </Form>
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </div>
