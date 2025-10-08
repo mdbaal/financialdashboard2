@@ -15,14 +15,13 @@ class TransactionController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string','max:255','min:3'],
             'description' => ['string','max:500',],
-            'amount' => ['required', 'max:8' ,'decimal:2', 'gt:0'],
-            'custom_id' => ['min:3','max:255','string', Rule::unique('App\Models\Transaction','custom_id')]
-        ],
-            stopOnFirstFailure: true,
-        );
+            'amount' => ['required', 'max:10' ,'decimal:2'],
+            'custom_id' => [Rule::excludeIf(empty($request['custom_id'])), 'min:3','max:255','string', Rule::unique('App\Models\Transaction','custom_id')]
+        ]);
 
 
         $validated['currency'] = $account->currency;
+        $validated['account_id'] = $account->id;
 
         Transaction::create($validated);
 
@@ -52,15 +51,14 @@ class TransactionController extends Controller
         return redirect(route('accounts.show', $account));
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request, int $account_id){
         $validated = $request->validate([
-            'id' => 'required|exists:App\Models\Transaction,id',
-            'account_id' => 'required|exists:App\Models\Account,id'
+            'id' => 'required|exists:App\Models\Transaction,id'
         ]);
 
         Transaction::find($validated['id'])->delete();
 
-        return redirect(route('accounts.show',Account::find($validated['account_id'])));
+        return redirect(route('accounts.show',Account::find($account_id)));
     }
 
 }
