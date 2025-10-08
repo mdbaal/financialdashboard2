@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import account from '@/routes/account';
+import { destroy } from '@/routes/accounts';
 import { Ellipsis } from 'lucide-vue-next';
 import EditAccountForm from '@/components/forms/account/EditAccountForm.vue';
 
@@ -73,7 +73,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <TableCell>{{ transaction.description }}</TableCell>
                         <TableCell>{{transaction.currency + transaction.amount }}</TableCell>
                         <TableCell>
-                            <Form :action="account">
+                            <Form :action="destroy()">
                                 <input name="id" hidden :value="transaction.id"/>
                                 <button type="submit"><Delete/></button>
                             </Form>
