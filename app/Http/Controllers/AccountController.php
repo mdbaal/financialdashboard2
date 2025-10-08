@@ -24,15 +24,14 @@ class AccountController extends Controller
         ]);
     }
 
-    public function show(int $id){
-        $account = Account::findOrFail($id);
-
+    public function show(Account $account){
         $transactions = $account->transactions;
 
         return Inertia::render('account/Show',
         [
             'accountViewed' => $account,
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'currencyOptions' => $this->getCurrencyOptions()
         ]);
     }
 
@@ -50,6 +49,33 @@ class AccountController extends Controller
         Account::create($validated);
         
         return redirect(route('accounts'));
+    }
+
+    public function update(int $id, Request $request){
+        $account = Account::findOrFail($id);
+
+        $validated = $request->validate([
+            'account_name' => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('App\Models\Account')->ignore($account->id)],
+            'account_number' => [
+                'required',
+                'alpha_num',
+                'max:50',
+                Rule::unique('App\Models\Account')->ignore($account->id)],
+            'currency' => ['required', Rule::in($this->getCurrencyOptions("value"))],
+        ]);
+
+        $account->account_name = $validated['account_name'];
+        $account->account_number = $validated['account_number'];
+        $account->currency = $validated['currency'];
+
+        if($account->isDirty())
+            $account->save();
+
+        redirect(route('account.show',$account));
     }
 
     public function destroy(Request $request){

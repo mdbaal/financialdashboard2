@@ -83,51 +83,57 @@ index.form = indexForm
 /**
 * @see \App\Http\Controllers\AccountController::show
 * @see app/Http/Controllers/AccountController.php:27
-* @route '/dashboard/accounts/{id}'
+* @route '/dashboard/accounts/{account}'
 */
-export const show = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { account: number | { id: number } } | [account: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 show.definition = {
     methods: ["get","head"],
-    url: '/dashboard/accounts/{id}',
+    url: '/dashboard/accounts/{account}',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \App\Http\Controllers\AccountController::show
 * @see app/Http/Controllers/AccountController.php:27
-* @route '/dashboard/accounts/{id}'
+* @route '/dashboard/accounts/{account}'
 */
-show.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
+show.url = (args: { account: number | { id: number } } | [account: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
-        args = { id: args }
+        args = { account: args }
+    }
+
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { account: args.id }
     }
 
     if (Array.isArray(args)) {
         args = {
-            id: args[0],
+            account: args[0],
         }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-        id: args.id,
+        account: typeof args.account === 'object'
+        ? args.account.id
+        : args.account,
     }
 
     return show.definition.url
-            .replace('{id}', parsedArgs.id.toString())
+            .replace('{account}', parsedArgs.account.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\AccountController::show
 * @see app/Http/Controllers/AccountController.php:27
-* @route '/dashboard/accounts/{id}'
+* @route '/dashboard/accounts/{account}'
 */
-show.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { account: number | { id: number } } | [account: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -135,9 +141,9 @@ show.get = (args: { id: string | number } | [id: string | number ] | string | nu
 /**
 * @see \App\Http\Controllers\AccountController::show
 * @see app/Http/Controllers/AccountController.php:27
-* @route '/dashboard/accounts/{id}'
+* @route '/dashboard/accounts/{account}'
 */
-show.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { account: number | { id: number } } | [account: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -145,9 +151,9 @@ show.head = (args: { id: string | number } | [id: string | number ] | string | n
 /**
 * @see \App\Http\Controllers\AccountController::show
 * @see app/Http/Controllers/AccountController.php:27
-* @route '/dashboard/accounts/{id}'
+* @route '/dashboard/accounts/{account}'
 */
-const showForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+const showForm = (args: { account: number | { id: number } } | [account: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, options),
     method: 'get',
 })
@@ -155,9 +161,9 @@ const showForm = (args: { id: string | number } | [id: string | number ] | strin
 /**
 * @see \App\Http\Controllers\AccountController::show
 * @see app/Http/Controllers/AccountController.php:27
-* @route '/dashboard/accounts/{id}'
+* @route '/dashboard/accounts/{account}'
 */
-showForm.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+showForm.get = (args: { account: number | { id: number } } | [account: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, options),
     method: 'get',
 })
@@ -165,9 +171,9 @@ showForm.get = (args: { id: string | number } | [id: string | number ] | string 
 /**
 * @see \App\Http\Controllers\AccountController::show
 * @see app/Http/Controllers/AccountController.php:27
-* @route '/dashboard/accounts/{id}'
+* @route '/dashboard/accounts/{account}'
 */
-showForm.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+showForm.head = (args: { account: number | { id: number } } | [account: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'HEAD',
@@ -181,7 +187,7 @@ show.form = showForm
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:40
+* @see app/Http/Controllers/AccountController.php:39
 * @route '/dashboard/accounts'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -196,7 +202,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:40
+* @see app/Http/Controllers/AccountController.php:39
 * @route '/dashboard/accounts'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -205,7 +211,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:40
+* @see app/Http/Controllers/AccountController.php:39
 * @route '/dashboard/accounts'
 */
 store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -215,7 +221,7 @@ store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:40
+* @see app/Http/Controllers/AccountController.php:39
 * @route '/dashboard/accounts'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -230,7 +236,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:40
+* @see app/Http/Controllers/AccountController.php:39
 * @route '/dashboard/accounts'
 */
 storeForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -246,8 +252,92 @@ storeForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
 store.form = storeForm
 
 /**
+* @see \App\Http\Controllers\AccountController::update
+* @see app/Http/Controllers/AccountController.php:54
+* @route '/dashboard/accounts/{account}'
+*/
+export const update = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+    url: update.url(args, options),
+    method: 'patch',
+})
+
+update.definition = {
+    methods: ["patch"],
+    url: '/dashboard/accounts/{account}',
+} satisfies RouteDefinition<["patch"]>
+
+/**
+* @see \App\Http\Controllers\AccountController::update
+* @see app/Http/Controllers/AccountController.php:54
+* @route '/dashboard/accounts/{account}'
+*/
+update.url = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { account: args }
+    }
+
+    if (Array.isArray(args)) {
+        args = {
+            account: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+        account: args.account,
+    }
+
+    return update.definition.url
+            .replace('{account}', parsedArgs.account.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\AccountController::update
+* @see app/Http/Controllers/AccountController.php:54
+* @route '/dashboard/accounts/{account}'
+*/
+update.patch = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+    url: update.url(args, options),
+    method: 'patch',
+})
+
+/**
+* @see \App\Http\Controllers\AccountController::update
+* @see app/Http/Controllers/AccountController.php:54
+* @route '/dashboard/accounts/{account}'
+*/
+const updateForm = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\AccountController::update
+* @see app/Http/Controllers/AccountController.php:54
+* @route '/dashboard/accounts/{account}'
+*/
+updateForm.patch = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
+
+/**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:55
+* @see app/Http/Controllers/AccountController.php:81
 * @route '/dashboard/accounts'
 */
 export const destroy = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -262,7 +352,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:55
+* @see app/Http/Controllers/AccountController.php:81
 * @route '/dashboard/accounts'
 */
 destroy.url = (options?: RouteQueryOptions) => {
@@ -271,7 +361,7 @@ destroy.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:55
+* @see app/Http/Controllers/AccountController.php:81
 * @route '/dashboard/accounts'
 */
 destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -281,7 +371,7 @@ destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:55
+* @see app/Http/Controllers/AccountController.php:81
 * @route '/dashboard/accounts'
 */
 const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -296,7 +386,7 @@ const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:55
+* @see app/Http/Controllers/AccountController.php:81
 * @route '/dashboard/accounts'
 */
 destroyForm.delete = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -311,6 +401,6 @@ destroyForm.delete = (options?: RouteQueryOptions): RouteFormDefinition<'post'> 
 
 destroy.form = destroyForm
 
-const AccountController = { index, show, store, destroy }
+const AccountController = { index, show, store, update, destroy }
 
 export default AccountController
