@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import CreateAccountForm from '@/components/Forms/CreateAccountForm.vue';
+import CreateAccountForm from '@/components/forms/account/CreateAccountForm.vue';
 import { Ellipsis, Delete } from 'lucide-vue-next';
 import { destroy } from '@/routes/accounts';
 

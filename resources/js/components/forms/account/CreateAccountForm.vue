@@ -10,13 +10,13 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 
 import { Form } from '@inertiajs/vue3';
 
 import { store } from '@/routes/accounts';
-import InputError from '../InputError.vue';
-import { Input } from '../ui/input';
+import InputError from '@/components/InputError.vue';
+import { Input } from '@/components/ui/input';
 
 import {
   Select,
