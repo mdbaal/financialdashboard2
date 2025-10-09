@@ -13,7 +13,7 @@ const projectSteps = [
     {
         step: 1,
         title: "De Basis",
-        description: "Het kunnen bijhouden van rekeningen, transacties en categoriën en daar CRUD acties op kunnen uitvoeren.",
+        description: "Het kunnen bijhouden van rekeningen, transacties en categoriën en daar CRUD acties op kunnen uitvoeren. En op een dashboard grafieken kunnen inzien op basis van de rekeningen en transacties",
         icon: Code
     },
     {
