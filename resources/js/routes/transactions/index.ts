@@ -85,32 +85,29 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\TransactionController::update
-* @see app/Http/Controllers/TransactionController.php:32
-* @route '/dashboard/accounts/{account}/transactions'
+* @see app/Http/Controllers/TransactionController.php:31
+* @route '/dashboard/accounts/{account}/transactions/{transaction}'
 */
-export const update = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+export const update = (args: { account: string | number, transaction: string | number } | [account: string | number, transaction: string | number ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
 
 update.definition = {
     methods: ["patch"],
-    url: '/dashboard/accounts/{account}/transactions',
+    url: '/dashboard/accounts/{account}/transactions/{transaction}',
 } satisfies RouteDefinition<["patch"]>
 
 /**
 * @see \App\Http\Controllers\TransactionController::update
-* @see app/Http/Controllers/TransactionController.php:32
-* @route '/dashboard/accounts/{account}/transactions'
+* @see app/Http/Controllers/TransactionController.php:31
+* @route '/dashboard/accounts/{account}/transactions/{transaction}'
 */
-update.url = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions) => {
-    if (typeof args === 'string' || typeof args === 'number') {
-        args = { account: args }
-    }
-
+update.url = (args: { account: string | number, transaction: string | number } | [account: string | number, transaction: string | number ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
             account: args[0],
+            transaction: args[1],
         }
     }
 
@@ -118,29 +115,31 @@ update.url = (args: { account: string | number } | [account: string | number ] |
 
     const parsedArgs = {
         account: args.account,
+        transaction: args.transaction,
     }
 
     return update.definition.url
             .replace('{account}', parsedArgs.account.toString())
+            .replace('{transaction}', parsedArgs.transaction.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\TransactionController::update
-* @see app/Http/Controllers/TransactionController.php:32
-* @route '/dashboard/accounts/{account}/transactions'
+* @see app/Http/Controllers/TransactionController.php:31
+* @route '/dashboard/accounts/{account}/transactions/{transaction}'
 */
-update.patch = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { account: string | number, transaction: string | number } | [account: string | number, transaction: string | number ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
 
 /**
 * @see \App\Http\Controllers\TransactionController::update
-* @see app/Http/Controllers/TransactionController.php:32
-* @route '/dashboard/accounts/{account}/transactions'
+* @see app/Http/Controllers/TransactionController.php:31
+* @route '/dashboard/accounts/{account}/transactions/{transaction}'
 */
-const updateForm = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+const updateForm = (args: { account: string | number, transaction: string | number } | [account: string | number, transaction: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PATCH',
@@ -152,10 +151,10 @@ const updateForm = (args: { account: string | number } | [account: string | numb
 
 /**
 * @see \App\Http\Controllers\TransactionController::update
-* @see app/Http/Controllers/TransactionController.php:32
-* @route '/dashboard/accounts/{account}/transactions'
+* @see app/Http/Controllers/TransactionController.php:31
+* @route '/dashboard/accounts/{account}/transactions/{transaction}'
 */
-updateForm.patch = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+updateForm.patch = (args: { account: string | number, transaction: string | number } | [account: string | number, transaction: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PATCH',
@@ -169,7 +168,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:55
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 export const destroy = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -184,7 +183,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:55
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 destroy.url = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -211,7 +210,7 @@ destroy.url = (args: { account: string | number } | [account: string | number ] 
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:55
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 destroy.delete = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -221,7 +220,7 @@ destroy.delete = (args: { account: string | number } | [account: string | number
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:55
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 const destroyForm = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -236,7 +235,7 @@ const destroyForm = (args: { account: string | number } | [account: string | num
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:55
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 destroyForm.delete = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
