@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class TransactionFactory extends Factory
             'amount' => fake()->randomFloat(2,-100,100),
             'currency' => '€',
             'account_id' => 1,
+            'date' => Carbon::now(),
         ];
     }
 }

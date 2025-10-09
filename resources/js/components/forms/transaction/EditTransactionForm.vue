@@ -5,15 +5,20 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+
+import { ref } from "vue";
+
 import { Button } from '@/components/ui/button';
 import { Form } from '@inertiajs/vue3';
 import { update } from '@/routes/transactions';
 import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
 import  { Label } from '@/components/ui/label';
-import { ref } from 'vue';
 
-defineProps({
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
+const props = defineProps({
     currentAccount: {
         type: Object,
         required: true,
@@ -24,7 +29,18 @@ defineProps({
     },
 });
 
+const calenderValue = ref<Date>((new Date(props.currentTransaction.date)));
+
 const model = defineModel({type: Boolean, default: false});
+
+const calenderFormat = (date:Date) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
 </script>
 
 <template>
@@ -81,6 +97,11 @@ const model = defineModel({type: Boolean, default: false});
                             :model-value="currentTransaction.custom_id"
                             />
                         <InputError :message="errors['custom_id']"/>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <Label for="date">Date</Label>
+                        <VueDatePicker v-model="calenderValue" :format="calenderFormat" name="date"></VueDatePicker>
+                        <InputError :message="errors['date']"/>
                     </div>
                     <div class="flex justify-between">
                         <Button type="button" variant="secondary" @click="model=false">Cancel</Button>

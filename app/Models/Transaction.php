@@ -18,6 +18,7 @@ class Transaction extends Model
         'currency',
         'account_id',
         'custom_id',
+        'date'
     ];
 
     public function account(): BelongsTo {

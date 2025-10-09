@@ -20,6 +20,9 @@ import { store } from '@/routes/transactions';
 import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
 
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 defineProps({
    currentAccount: {
     type: Object,
@@ -28,6 +31,15 @@ defineProps({
 });
 
 const dialogOpen = ref(false);
+
+const calenderValue = ref<Date>((new Date()));
+const calenderFormat = (date:Date) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
 
 </script>
 
@@ -66,6 +78,11 @@ const dialogOpen = ref(false);
                         <Label for="custom_id">Custom Identifier</Label>
                         <Input class="border rounded p-2"  type="text" name="custom_id"/>
                         <InputError :message="errors['custom_id']"/>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <Label for="date">Date</Label>
+                        <VueDatePicker v-model="calenderValue" :format="calenderFormat" name="date"></VueDatePicker>
+                        <InputError :message="errors['date']"/>
                     </div>
                     <div class="justify-end flex"><Button type="submit" variant="secondary">Save</Button></div>
                 </Form>

@@ -77,6 +77,7 @@ const transactionViewed = ref(props.transactions[0]);
                         <TableHead>Description</TableHead>
                         <TableHead>Amount</TableHead>
                         <TableHead>Custom Identifier</TableHead>
+                        <TableHead>Date</TableHead>
                         <TableHead><Ellipsis /></TableHead>
                     </TableRow>
                     </TableHeader>
@@ -88,6 +89,7 @@ const transactionViewed = ref(props.transactions[0]);
                         <TableCell>{{ transaction.description }}</TableCell>
                         <TableCell>{{transaction.currency + transaction.amount }}</TableCell>
                         <TableCell>{{transaction.custom_id }}</TableCell>
+                        <TableCell>{{transaction.date }}</TableCell>
                         <TableCell>
                             <Form :action="destroy(accountViewed.id)">
                                 <input name="id" hidden :value="transaction.id"/>

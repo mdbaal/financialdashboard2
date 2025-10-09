@@ -15,10 +15,15 @@ class TransactionController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string','max:255','min:3'],
             'description' => [Rule::excludeIf(empty($request['description'])), 'string', 'max:500',],
-            'amount' => ['required', 'max:10' ,'decimal:2'],
-            'custom_id' => [Rule::excludeIf(empty($request['custom_id'])), 'min:3','max:255','string', Rule::unique('App\Models\Transaction','custom_id')]
+            'amount' => ['required' ,'decimal:0,2'],
+            'custom_id' => [
+                Rule::excludeIf(empty($request['custom_id'])),
+                'min:3',
+                'max:255',
+                'string',
+                Rule::unique('App\Models\Transaction','custom_id')],
+            'date' => ['required']
         ]);
-
 
         $validated['currency'] = $account->currency;
         $validated['account_id'] = $account->id;
@@ -35,18 +40,22 @@ class TransactionController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string','max:255','min:3'],
             'description' => [Rule::excludeIf(empty($request['description'])),'string','max:500',],
-            'amount' => ['required', 'max:10'],
+            'amount' => ['required', 'decimal:0,2'],
             'custom_id' => [
                 Rule::excludeIf(empty($request['custom_id'])),
-                'min:3','max:255','string',
+                'min:3',
+                'max:255',
+                'string',
                 Rule::unique('App\Models\Transaction','custom_id')->ignore($transactionId)
             ],
+            'date' => ['required']
         ]);
 
         $transaction->name = $validated['name'];
         $transaction->description = $validated['description'] ?? '';
         $transaction->amount = $validated['amount'];
         $transaction->custom_id = $validated['custom_id'] ?? '';
+        $transaction->date = $validated['date'];
 
         if($transaction->isDirty())
             $transaction->save();
