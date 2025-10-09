@@ -168,7 +168,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:53
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 export const destroy = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -183,7 +183,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:53
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 destroy.url = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -210,7 +210,7 @@ destroy.url = (args: { account: string | number } | [account: string | number ] 
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:53
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 destroy.delete = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -220,7 +220,7 @@ destroy.delete = (args: { account: string | number } | [account: string | number
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:53
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 const destroyForm = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -235,7 +235,7 @@ const destroyForm = (args: { account: string | number } | [account: string | num
 
 /**
 * @see \App\Http\Controllers\TransactionController::destroy
-* @see app/Http/Controllers/TransactionController.php:53
+* @see app/Http/Controllers/TransactionController.php:57
 * @route '/dashboard/accounts/{account}/transactions'
 */
 destroyForm.delete = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

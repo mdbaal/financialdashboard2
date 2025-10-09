@@ -14,7 +14,7 @@ class TransactionController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string','max:255','min:3'],
-            'description' => ['string','max:500',],
+            'description' => [Rule::excludeIf(empty($request['description'])), 'string', 'max:500',],
             'amount' => ['required', 'max:10' ,'decimal:2'],
             'custom_id' => [Rule::excludeIf(empty($request['custom_id'])), 'min:3','max:255','string', Rule::unique('App\Models\Transaction','custom_id')]
         ]);
@@ -33,16 +33,20 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($transactionId);
 
         $validated = $request->validate([
-            'name' => ['string','max:255','min:3'],
-            'description' => ['string','max:500',],
-            'amount' => ['max:8' ,'decimal:2', 'gt:0'],
-            'custom_id' => ['min:3','max:255','string', Rule::unique('App\Models\Transaction','custom_id')->ignore($transactionId)]
+            'name' => ['required', 'string','max:255','min:3'],
+            'description' => [Rule::excludeIf(empty($request['description'])),'string','max:500',],
+            'amount' => ['required', 'max:10'],
+            'custom_id' => [
+                Rule::excludeIf(empty($request['custom_id'])),
+                'min:3','max:255','string',
+                Rule::unique('App\Models\Transaction','custom_id')->ignore($transactionId)
+            ],
         ]);
 
         $transaction->name = $validated['name'];
-        $transaction->description = $validated['description'];
+        $transaction->description = $validated['description'] ?? '';
         $transaction->amount = $validated['amount'];
-        $transaction->custom_id = $validated['custom_id'];
+        $transaction->custom_id = $validated['custom_id'] ?? '';
 
         if($transaction->isDirty())
             $transaction->save();
