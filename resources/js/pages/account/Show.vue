@@ -100,6 +100,7 @@ const transactionViewed = ref(props.transactions[0]);
                     </TableBody>
                 </Table>
                 <EditTransactionForm
+                    v-if="transactionViewed"
                     v-model="dialogOpen"
                     :current-account="accountViewed"
                     :current-transaction="transactionViewed"
