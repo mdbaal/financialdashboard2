@@ -28,4 +28,11 @@ class Account extends Model
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
+
+    public function updateBalance(){
+        $updatedBalance = $this->transactions()->sum('amount');
+        
+        $this->balance = $updatedBalance;
+        $this->save();
+    }
 }
