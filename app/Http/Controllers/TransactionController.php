@@ -30,6 +30,8 @@ class TransactionController extends Controller
 
         Transaction::create($validated);
 
+        $account->updateBalance();
+
         return redirect(route('accounts.show', $account));
     }
 
@@ -60,6 +62,9 @@ class TransactionController extends Controller
         if($transaction->isDirty())
             $transaction->save();
 
+        if($transaction->wasChanged('amount'))
+            $account->updateBalance();
+
         return redirect(route('accounts.show', $account));
     }
 
@@ -70,7 +75,10 @@ class TransactionController extends Controller
 
         Transaction::find($validated['id'])->delete();
 
-        return redirect(route('accounts.show',Account::find($account_id)));
+        $account = Account::find($account_id);
+        $account->updateBalance();
+
+        return redirect(route('accounts.show', $account));
     }
 
 }
