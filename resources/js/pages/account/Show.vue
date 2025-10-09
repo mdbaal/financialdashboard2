@@ -3,7 +3,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard, accounts,  } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, Form } from '@inertiajs/vue3';
 import {
   Table,
   TableBody,
@@ -17,14 +17,18 @@ import { destroy } from '@/routes/transactions';
 import { Ellipsis, Delete } from 'lucide-vue-next';
 import EditAccountForm from '@/components/forms/account/EditAccountForm.vue';
 import CreateTransactionForm from '@/components/forms/transaction/CreateTransactionForm.vue';
-import { Form } from '@inertiajs/vue3';
+import EditTransactionForm from '@/components/forms/transaction/EditTransactionForm.vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     accountViewed: {
         type: Object,
         required: true
     },
-    transactions: Object,
+    transactions: {
+        type: Object,
+        required: true,
+    },
     currencyOptions: Object,
 });
 
@@ -41,8 +45,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         title: props.accountViewed.account_name,
         href: accounts().url + '/' + props.accountViewed.id
     }
-    
 ];
+
+const dialogOpen = ref(false);
+const transactionViewed = ref(props.transactions[0]);
 
 </script>
 
@@ -64,34 +70,39 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <CreateTransactionForm :current-account="accountViewed"></CreateTransactionForm>
                 </div>
                 <Table>
-                        <TableCaption>Transactions</TableCaption>
-                        <TableHeader>
-                        <TableRow>
-                            <TableHead>Transaction</TableHead>
-                            <TableHead>Description</TableHead>
-                            <TableHead>Amount</TableHead>
-                            <TableHead>Custom Identifier</TableHead>
-                            <TableHead><Ellipsis /></TableHead>
-                        </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                        <TableRow v-for="transaction in transactions">
-                            <TableCell class="font-medium">
-                            {{ transaction.name }}
-                            </TableCell>
-                            <TableCell>{{ transaction.description }}</TableCell>
-                            <TableCell>{{transaction.currency + transaction.amount }}</TableCell>
-                            <TableCell>{{transaction.custom_id }}</TableCell>
-                            <TableCell>
-                                <Form :action="destroy(accountViewed.id)">
-                                    <input name="id" hidden :value="transaction.id"/>
-                                    <button type="submit" class="hover:cursor-pointer"><Delete/></button>
-                                </Form>
-                            </TableCell> 
-                        </TableRow>
-                        </TableBody>
-                    </Table>
-                </div>
+                    <TableCaption>Transactions</TableCaption>
+                    <TableHeader>
+                    <TableRow>
+                        <TableHead>Transaction</TableHead>
+                        <TableHead>Description</TableHead>
+                        <TableHead>Amount</TableHead>
+                        <TableHead>Custom Identifier</TableHead>
+                        <TableHead><Ellipsis /></TableHead>
+                    </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                    <TableRow v-for="transaction in transactions">
+                        <TableCell class="font-medium" @click="transactionViewed=transaction;dialogOpen=true">
+                        {{ transaction.name }}
+                        </TableCell>
+                        <TableCell>{{ transaction.description }}</TableCell>
+                        <TableCell>{{transaction.currency + transaction.amount }}</TableCell>
+                        <TableCell>{{transaction.custom_id }}</TableCell>
+                        <TableCell>
+                            <Form :action="destroy(accountViewed.id)">
+                                <input name="id" hidden :value="transaction.id"/>
+                                <button type="submit" class="hover:cursor-pointer"><Delete/></button>
+                            </Form>
+                        </TableCell> 
+                    </TableRow>
+                    </TableBody>
+                </Table>
+                <EditTransactionForm
+                    v-model="dialogOpen"
+                    :current-account="accountViewed"
+                    :current-transaction="transactionViewed"
+                /> 
+            </div>
         </div>
     </AppLayout>
 </template>
