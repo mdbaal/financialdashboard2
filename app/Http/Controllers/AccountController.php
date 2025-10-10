@@ -57,6 +57,10 @@ class AccountController extends Controller
         $account->account_number = $validated['account_number'];
         $account->currency = $validated['currency'];
 
+        if ($account->isDirty('currency')) {
+            $account->transactions()->update(['currency' => $account->currency]);
+        }
+
         if ($account->isDirty()) {
             $account->save();
         }

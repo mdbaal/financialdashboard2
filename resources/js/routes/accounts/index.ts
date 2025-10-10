@@ -287,7 +287,7 @@ update.form = updateForm
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:67
+ * @see app/Http/Controllers/AccountController.php:71
  * @route '/dashboard/accounts'
  */
 export const destroy = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -302,7 +302,7 @@ destroy.definition = {
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:67
+ * @see app/Http/Controllers/AccountController.php:71
  * @route '/dashboard/accounts'
  */
 destroy.url = (options?: RouteQueryOptions) => {
@@ -311,7 +311,7 @@ destroy.url = (options?: RouteQueryOptions) => {
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:67
+ * @see app/Http/Controllers/AccountController.php:71
  * @route '/dashboard/accounts'
  */
 destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -321,7 +321,7 @@ destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:67
+ * @see app/Http/Controllers/AccountController.php:71
  * @route '/dashboard/accounts'
  */
 const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -336,7 +336,7 @@ const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:67
+ * @see app/Http/Controllers/AccountController.php:71
  * @route '/dashboard/accounts'
  */
 destroyForm.delete = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

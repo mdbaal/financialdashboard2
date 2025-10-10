@@ -30,12 +30,12 @@ class UpdateAccountRequest extends FormRequest
                 'regex:/^[a-zA-Z0-9\s]+$/',
                 'string',
                 'max:50',
-                Rule::unique('App\Models\Account')->ignore($this->id)],
+                Rule::unique('App\Models\Account')->ignore($this->route('account'))],
             'account_number' => [
                 'required',
                 'alpha_num',
                 'max:50',
-                Rule::unique('App\Models\Account')->ignore($this->id)],
+                Rule::unique('App\Models\Account')->ignore($this->route('account'))],
             'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('value'))],
         ];
     }
