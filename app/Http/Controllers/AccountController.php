@@ -44,7 +44,8 @@ class AccountController extends Controller
 
         Account::create($validated);
 
-        return redirect(route('accounts'));
+        return redirect(route('accounts'))
+            ->with('success', ['message' => 'Account created successfully.', 'duration' => 5000]);
     }
 
     public function update(UpdateAccountRequest $request, int $id)
@@ -65,7 +66,9 @@ class AccountController extends Controller
             $account->save();
         }
 
-        redirect(route('accounts.show', $account));
+        redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Account updated successfully.', 'duration' => 5000]);
+
     }
 
     public function destroy(DestroyAccountRequest $request)
@@ -74,6 +77,8 @@ class AccountController extends Controller
 
         Account::find($validated['id'])->delete();
 
-        return redirect(route('accounts'));
+        return redirect(route('accounts'))
+            ->with('success', ['message' => 'Account deleted successfully.', 'duration' => 5000]);
+
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -36,16 +35,31 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
-
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'flash' => [
+                'success' => fn () => $this->flashToArray($request->session()->get('success')),
+                'error' => fn () => $this->flashToArray($request->session()->get('error')),
+                'warning' => fn () => $this->flashToArray($request->session()->get('warning')),
+                'info' => fn () => $this->flashToArray($request->session()->get('info')),
+            ],
         ];
+    }
+
+    private function flashToArray(array|string|null $flash): array|false
+    {
+        if ($flash === null) {
+            return false;
+        }
+        if (is_string($flash)) {
+            return ['message' => $flash];
+        }
+
+        return $flash;
     }
 }

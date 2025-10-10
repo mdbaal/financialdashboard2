@@ -1,5 +1,5 @@
-import { InertiaLinkProps } from '@inertiajs/vue3';
-import type { LucideIcon } from 'lucide-vue-next';
+import {InertiaLinkProps} from '@inertiajs/vue3';
+import type {LucideIcon} from 'lucide-vue-next';
 
 export interface Auth {
     user: User;
@@ -17,13 +17,19 @@ export interface NavItem {
     isActive?: boolean;
 }
 
+export interface FlashItemProps {
+    message: string;
+    type: string;
+    duration: number;
+}
+
 export type AppPageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
     name: string;
-    quote: { message: string; author: string };
     auth: Auth;
     sidebarOpen: boolean;
+    flash: FlashTypes;
 };
 
 export interface User {
