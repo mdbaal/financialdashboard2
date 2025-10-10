@@ -8,7 +8,7 @@ import {
 
 /**
  * @see \App\Http\Controllers\TransactionController::store
- * @see app/Http/Controllers/TransactionController.php:12
+ * @see app/Http/Controllers/TransactionController.php:13
  * @route '/dashboard/transactions'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -23,7 +23,7 @@ store.definition = {
 
 /**
  * @see \App\Http\Controllers\TransactionController::store
- * @see app/Http/Controllers/TransactionController.php:12
+ * @see app/Http/Controllers/TransactionController.php:13
  * @route '/dashboard/transactions'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -32,7 +32,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
  * @see \App\Http\Controllers\TransactionController::store
- * @see app/Http/Controllers/TransactionController.php:12
+ * @see app/Http/Controllers/TransactionController.php:13
  * @route '/dashboard/transactions'
  */
 store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -42,7 +42,7 @@ store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
 /**
  * @see \App\Http\Controllers\TransactionController::store
- * @see app/Http/Controllers/TransactionController.php:12
+ * @see app/Http/Controllers/TransactionController.php:13
  * @route '/dashboard/transactions'
  */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -57,7 +57,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
  * @see \App\Http\Controllers\TransactionController::store
- * @see app/Http/Controllers/TransactionController.php:12
+ * @see app/Http/Controllers/TransactionController.php:13
  * @route '/dashboard/transactions'
  */
 storeForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -74,7 +74,7 @@ store.form = storeForm
 
 /**
  * @see \App\Http\Controllers\TransactionController::update
- * @see app/Http/Controllers/TransactionController.php:40
+ * @see app/Http/Controllers/TransactionController.php:29
  * @route '/dashboard/transactions/{transaction}'
  */
 export const update = (args: {
@@ -91,7 +91,7 @@ update.definition = {
 
 /**
  * @see \App\Http\Controllers\TransactionController::update
- * @see app/Http/Controllers/TransactionController.php:40
+ * @see app/Http/Controllers/TransactionController.php:29
  * @route '/dashboard/transactions/{transaction}'
  */
 update.url = (args: {
@@ -120,7 +120,7 @@ update.url = (args: {
 
 /**
  * @see \App\Http\Controllers\TransactionController::update
- * @see app/Http/Controllers/TransactionController.php:40
+ * @see app/Http/Controllers/TransactionController.php:29
  * @route '/dashboard/transactions/{transaction}'
  */
 update.patch = (args: {
@@ -132,7 +132,7 @@ update.patch = (args: {
 
 /**
  * @see \App\Http\Controllers\TransactionController::update
- * @see app/Http/Controllers/TransactionController.php:40
+ * @see app/Http/Controllers/TransactionController.php:29
  * @route '/dashboard/transactions/{transaction}'
  */
 const updateForm = (args: {
@@ -149,7 +149,7 @@ const updateForm = (args: {
 
 /**
  * @see \App\Http\Controllers\TransactionController::update
- * @see app/Http/Controllers/TransactionController.php:40
+ * @see app/Http/Controllers/TransactionController.php:29
  * @route '/dashboard/transactions/{transaction}'
  */
 updateForm.patch = (args: {
@@ -168,7 +168,7 @@ update.form = updateForm
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:68
+ * @see app/Http/Controllers/TransactionController.php:57
  * @route '/dashboard/transactions'
  */
 export const destroy = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -183,7 +183,7 @@ destroy.definition = {
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:68
+ * @see app/Http/Controllers/TransactionController.php:57
  * @route '/dashboard/transactions'
  */
 destroy.url = (options?: RouteQueryOptions) => {
@@ -192,7 +192,7 @@ destroy.url = (options?: RouteQueryOptions) => {
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:68
+ * @see app/Http/Controllers/TransactionController.php:57
  * @route '/dashboard/transactions'
  */
 destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -202,7 +202,7 @@ destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:68
+ * @see app/Http/Controllers/TransactionController.php:57
  * @route '/dashboard/transactions'
  */
 const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -217,7 +217,7 @@ const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:68
+ * @see app/Http/Controllers/TransactionController.php:57
  * @route '/dashboard/transactions'
  */
 destroyForm.delete = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

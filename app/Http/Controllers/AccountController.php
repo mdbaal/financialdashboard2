@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CurrencyTypes;
-use App\Http\Requests\DestroyAccountRequest;
-use App\Http\Requests\StoreAccountRequest;
-use App\Http\Requests\UpdateAccountRequest;
+use App\Http\Requests\Account\DestroyAccountRequest;
+use App\Http\Requests\Account\StoreAccountRequest;
+use App\Http\Requests\Account\UpdateAccountRequest;
 use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;

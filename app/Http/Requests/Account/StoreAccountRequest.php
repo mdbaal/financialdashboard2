@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Account;
 
+use App\Enums\CurrencyTypes;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class DestroyAccountRequest extends FormRequest
+class StoreAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +25,9 @@ class DestroyAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:App\Models\Account,id',
+            'account_name' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'max:50', 'unique:App\Models\Account'],
+            'account_number' => ['required', 'alpha_num', 'max:50', 'unique:App\Models\Account'],
+            'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('value'))],
         ];
     }
 }

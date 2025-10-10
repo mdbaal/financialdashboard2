@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Account;
 
 use App\Enums\CurrencyTypes;
 use Illuminate\Contracts\Validation\ValidationRule;

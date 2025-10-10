@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transaction\StoreTransactionRequest;
 use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -9,21 +10,9 @@ use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreTransactionRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'description' => [Rule::excludeIf(empty($request['description'])), 'string', 'max:500'],
-            'amount' => ['required', 'decimal:0,2'],
-            'custom_id' => [
-                Rule::excludeIf(empty($request['custom_id'])),
-                'min:3',
-                'max:255',
-                'string',
-                Rule::unique('App\Models\Transaction', 'custom_id')],
-            'date' => ['required'],
-            'account_id' => 'required|exists:App\Models\Account,id',
-        ]);
+        $validated = $request->validated();
 
         $account = Account::find($validated['account_id']);
 
