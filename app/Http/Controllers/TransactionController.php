@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DestroyTransactionRequest;
 use App\Http\Requests\Transaction\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Account;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -42,11 +42,9 @@ class TransactionController extends Controller
         return redirect(route('accounts.show', $account));
     }
 
-    public function destroy(Request $request)
+    public function destroy(DestroyTransactionRequest $request)
     {
-        $validated = $request->validate([
-            'id' => 'required|exists:App\Models\Transaction,id',
-        ]);
+        $validated = $request->validated();
 
         $transaction = Transaction::find($validated['id']);
         $account = $transaction->account;
