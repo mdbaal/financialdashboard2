@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DestroyTransactionRequest;
+use App\Http\Requests\Transaction\DestroyTransactionRequest;
 use App\Http\Requests\Transaction\StoreTransactionRequest;
-use App\Http\Requests\UpdateTransactionRequest;
+use App\Http\Requests\Transaction\UpdateTransactionRequest;
 use App\Models\Account;
 use App\Models\Transaction;
 
