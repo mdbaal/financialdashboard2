@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CurrencyTypes;
+use App\Http\Requests\DestroyAccountRequest;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Models\Account;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -64,11 +64,9 @@ class AccountController extends Controller
         redirect(route('accounts.show', $account));
     }
 
-    public function destroy(Request $request)
+    public function destroy(DestroyAccountRequest $request)
     {
-        $validated = $request->validate([
-            'id' => 'required|exists:App\Models\Account,id',
-        ]);
+        $validated = $request->validated();
 
         Account::find($validated['id'])->delete();
 
