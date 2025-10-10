@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Enums\CurrencyTypes;
 use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class AccountController extends Controller
@@ -47,24 +47,11 @@ class AccountController extends Controller
         return redirect(route('accounts'));
     }
 
-    public function update(int $id, Request $request)
+    public function update(UpdateAccountRequest $request, int $id)
     {
         $account = Account::findOrFail($id);
 
-        $validated = $request->validate([
-            'account_name' => [
-                'required',
-                'regex:/^[a-zA-Z0-9\s]+$/',
-                'string',
-                'max:50',
-                Rule::unique('App\Models\Account')->ignore($account->id)],
-            'account_number' => [
-                'required',
-                'alpha_num',
-                'max:50',
-                Rule::unique('App\Models\Account')->ignore($account->id)],
-            'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('value'))],
-        ]);
+        $validated = $request->validated();
 
         $account->account_name = $validated['account_name'];
         $account->account_number = $validated['account_number'];
