@@ -14,7 +14,7 @@ class StoreAccountRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // for now
+        return true; // TODO: Change when adding roles and permissions
     }
 
     /**
