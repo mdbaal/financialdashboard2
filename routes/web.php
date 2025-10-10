@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -9,11 +10,9 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
-
 Route::middleware(['auth', 'verified'])->prefix('dashboard/')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('accounts', [AccountController::class, 'index'])->name('accounts');
     Route::get('accounts/{account}', [AccountController::class, 'show'])->name('accounts.show');
     Route::put('accounts', [AccountController::class, 'store'])->name('accounts.store');
