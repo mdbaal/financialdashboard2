@@ -8,7 +8,7 @@ import {
 
 /**
  * @see \App\Http\Controllers\AccountController::show
- * @see app/Http/Controllers/AccountController.php:26
+ * @see app/Http/Controllers/AccountController.php:27
  * @route '/dashboard/accounts/{account}'
  */
 export const show = (args: { account: number | { id: number } } | [account: number | { id: number }] | number | {
@@ -25,7 +25,7 @@ show.definition = {
 
 /**
  * @see \App\Http\Controllers\AccountController::show
- * @see app/Http/Controllers/AccountController.php:26
+ * @see app/Http/Controllers/AccountController.php:27
  * @route '/dashboard/accounts/{account}'
  */
 show.url = (args: { account: number | { id: number } } | [account: number | { id: number }] | number | {
@@ -60,7 +60,7 @@ show.url = (args: { account: number | { id: number } } | [account: number | { id
 
 /**
  * @see \App\Http\Controllers\AccountController::show
- * @see app/Http/Controllers/AccountController.php:26
+ * @see app/Http/Controllers/AccountController.php:27
  * @route '/dashboard/accounts/{account}'
  */
 show.get = (args: { account: number | { id: number } } | [account: number | { id: number }] | number | {
@@ -72,7 +72,7 @@ show.get = (args: { account: number | { id: number } } | [account: number | { id
 
 /**
  * @see \App\Http\Controllers\AccountController::show
- * @see app/Http/Controllers/AccountController.php:26
+ * @see app/Http/Controllers/AccountController.php:27
  * @route '/dashboard/accounts/{account}'
  */
 show.head = (args: { account: number | { id: number } } | [account: number | { id: number }] | number | {
@@ -84,7 +84,7 @@ show.head = (args: { account: number | { id: number } } | [account: number | { i
 
 /**
  * @see \App\Http\Controllers\AccountController::show
- * @see app/Http/Controllers/AccountController.php:26
+ * @see app/Http/Controllers/AccountController.php:27
  * @route '/dashboard/accounts/{account}'
  */
 const showForm = (args: { account: number | { id: number } } | [account: number | { id: number }] | number | {
@@ -96,7 +96,7 @@ const showForm = (args: { account: number | { id: number } } | [account: number 
 
 /**
  * @see \App\Http\Controllers\AccountController::show
- * @see app/Http/Controllers/AccountController.php:26
+ * @see app/Http/Controllers/AccountController.php:27
  * @route '/dashboard/accounts/{account}'
  */
 showForm.get = (args: { account: number | { id: number } } | [account: number | { id: number }] | number | {
@@ -108,7 +108,7 @@ showForm.get = (args: { account: number | { id: number } } | [account: number | 
 
 /**
  * @see \App\Http\Controllers\AccountController::show
- * @see app/Http/Controllers/AccountController.php:26
+ * @see app/Http/Controllers/AccountController.php:27
  * @route '/dashboard/accounts/{account}'
  */
 showForm.head = (args: { account: number | { id: number } } | [account: number | { id: number }] | number | {
@@ -127,7 +127,7 @@ show.form = showForm
 
 /**
  * @see \App\Http\Controllers\AccountController::store
- * @see app/Http/Controllers/AccountController.php:38
+ * @see app/Http/Controllers/AccountController.php:39
  * @route '/dashboard/accounts'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -142,7 +142,7 @@ store.definition = {
 
 /**
  * @see \App\Http\Controllers\AccountController::store
- * @see app/Http/Controllers/AccountController.php:38
+ * @see app/Http/Controllers/AccountController.php:39
  * @route '/dashboard/accounts'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -151,7 +151,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
  * @see \App\Http\Controllers\AccountController::store
- * @see app/Http/Controllers/AccountController.php:38
+ * @see app/Http/Controllers/AccountController.php:39
  * @route '/dashboard/accounts'
  */
 store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -161,7 +161,7 @@ store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
 /**
  * @see \App\Http\Controllers\AccountController::store
- * @see app/Http/Controllers/AccountController.php:38
+ * @see app/Http/Controllers/AccountController.php:39
  * @route '/dashboard/accounts'
  */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -176,7 +176,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
  * @see \App\Http\Controllers\AccountController::store
- * @see app/Http/Controllers/AccountController.php:38
+ * @see app/Http/Controllers/AccountController.php:39
  * @route '/dashboard/accounts'
  */
 storeForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -193,7 +193,7 @@ store.form = storeForm
 
 /**
  * @see \App\Http\Controllers\AccountController::update
- * @see app/Http/Controllers/AccountController.php:54
+ * @see app/Http/Controllers/AccountController.php:50
  * @route '/dashboard/accounts/{account}'
  */
 export const update = (args: {
@@ -210,7 +210,7 @@ update.definition = {
 
 /**
  * @see \App\Http\Controllers\AccountController::update
- * @see app/Http/Controllers/AccountController.php:54
+ * @see app/Http/Controllers/AccountController.php:50
  * @route '/dashboard/accounts/{account}'
  */
 update.url = (args: {
@@ -239,7 +239,7 @@ update.url = (args: {
 
 /**
  * @see \App\Http\Controllers\AccountController::update
- * @see app/Http/Controllers/AccountController.php:54
+ * @see app/Http/Controllers/AccountController.php:50
  * @route '/dashboard/accounts/{account}'
  */
 update.patch = (args: {
@@ -251,7 +251,7 @@ update.patch = (args: {
 
 /**
  * @see \App\Http\Controllers\AccountController::update
- * @see app/Http/Controllers/AccountController.php:54
+ * @see app/Http/Controllers/AccountController.php:50
  * @route '/dashboard/accounts/{account}'
  */
 const updateForm = (args: {
@@ -268,7 +268,7 @@ const updateForm = (args: {
 
 /**
  * @see \App\Http\Controllers\AccountController::update
- * @see app/Http/Controllers/AccountController.php:54
+ * @see app/Http/Controllers/AccountController.php:50
  * @route '/dashboard/accounts/{account}'
  */
 updateForm.patch = (args: {
@@ -287,7 +287,7 @@ update.form = updateForm
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:0
+ * @see app/Http/Controllers/AccountController.php:80
  * @route '/dashboard/accounts'
  */
 export const destroy = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -302,7 +302,7 @@ destroy.definition = {
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:0
+ * @see app/Http/Controllers/AccountController.php:80
  * @route '/dashboard/accounts'
  */
 destroy.url = (options?: RouteQueryOptions) => {
@@ -311,7 +311,7 @@ destroy.url = (options?: RouteQueryOptions) => {
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:0
+ * @see app/Http/Controllers/AccountController.php:80
  * @route '/dashboard/accounts'
  */
 destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -321,7 +321,7 @@ destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:0
+ * @see app/Http/Controllers/AccountController.php:80
  * @route '/dashboard/accounts'
  */
 const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -336,7 +336,7 @@ const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =
 
 /**
  * @see \App\Http\Controllers\AccountController::destroy
- * @see app/Http/Controllers/AccountController.php:0
+ * @see app/Http/Controllers/AccountController.php:80
  * @route '/dashboard/accounts'
  */
 destroyForm.delete = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

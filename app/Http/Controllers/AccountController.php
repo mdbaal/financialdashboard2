@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CurrencyTypes;
+use App\Http\Requests\StoreAccountRequest;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = Auth::user()->accounts;
-        $currencyOptions = $this->getCurrencyOptions();
+        $currencyOptions = CurrencyTypes::getCurrencyOptions();
 
         return Inertia::render('account/Accounts',
             [
@@ -31,18 +32,13 @@ class AccountController extends Controller
             [
                 'accountViewed' => $account,
                 'transactions' => $transactions,
-                'currencyOptions' => $this->getCurrencyOptions(),
+                'currencyOptions' => CurrencyTypes::getCurrencyOptions(),
             ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreAccountRequest $request)
     {
-        $validated = $request->validate([
-            'account_name' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'max:50', 'unique:App\Models\Account'],
-            'account_number' => ['required', 'alpha_num', 'max:50', 'unique:App\Models\Account'],
-            'currency' => ['required', Rule::in($this->getCurrencyOptions('value'))],
-        ]);
-
+        $validated = $request->validated();
         $validated['balance'] = 0;
         $validated['user_id'] = Auth::id();
 
@@ -67,7 +63,7 @@ class AccountController extends Controller
                 'alpha_num',
                 'max:50',
                 Rule::unique('App\Models\Account')->ignore($account->id)],
-            'currency' => ['required', Rule::in($this->getCurrencyOptions('value'))],
+            'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('value'))],
         ]);
 
         $account->account_name = $validated['account_name'];
@@ -90,24 +86,5 @@ class AccountController extends Controller
         Account::find($validated['id'])->delete();
 
         return redirect(route('accounts'));
-    }
-
-    private function getCurrencyOptions($type = null)
-    {
-        if ($type == 'key') {
-            return array_map(function ($enum) {
-                return $enum->name;
-            }, CurrencyTypes::cases());
-        }
-
-        if ($type == 'value') {
-            return array_map(function ($enum) {
-                return $enum->value;
-            }, CurrencyTypes::cases());
-        }
-
-        return array_map(function ($enum) {
-            return ['name' => $enum->name, 'value' => $enum->value];
-        }, CurrencyTypes::cases());
     }
 }
