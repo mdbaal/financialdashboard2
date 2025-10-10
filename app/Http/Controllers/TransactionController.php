@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
 {
-    public function store(Request $request, int $account_id)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255', 'min:3'],
@@ -32,7 +32,7 @@ class TransactionController extends Controller
 
         Transaction::create($validated);
 
-        $account->updateBalance();
+        $account->updateBalance($validated['amount']);
 
         return redirect(route('accounts.show', $account));
     }
@@ -56,18 +56,10 @@ class TransactionController extends Controller
             'date' => ['required'],
         ]);
 
-        $transaction->name = $validated['name'];
-        $transaction->description = $validated['description'] ?? '';
-        $transaction->amount = $validated['amount'];
-        $transaction->custom_id = $validated['custom_id'] ?? '';
-        $transaction->date = $validated['date'];
-
-        if ($transaction->isDirty()) {
-            $transaction->save();
-        }
+        $transaction->update($validated);
 
         if ($transaction->wasChanged('amount')) {
-            $account->updateBalance();
+            $account->updateBalance($transaction->amount, $transaction->getPrevious()['amount'], true);
         }
 
         return redirect(route('accounts.show', $account));
@@ -82,8 +74,9 @@ class TransactionController extends Controller
         $transaction = Transaction::find($validated['id']);
         $account = $transaction->account;
 
+        $amount = $transaction->amount;
         $transaction->delete();
-        $account->updateBalance();
+        $account->updateBalance($amount, 0, false, true);
 
         return redirect(route('accounts.show', $account));
     }

@@ -168,7 +168,7 @@ update.form = updateForm
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:76
+ * @see app/Http/Controllers/TransactionController.php:68
  * @route '/dashboard/transactions'
  */
 export const destroy = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -183,7 +183,7 @@ destroy.definition = {
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:76
+ * @see app/Http/Controllers/TransactionController.php:68
  * @route '/dashboard/transactions'
  */
 destroy.url = (options?: RouteQueryOptions) => {
@@ -192,7 +192,7 @@ destroy.url = (options?: RouteQueryOptions) => {
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:76
+ * @see app/Http/Controllers/TransactionController.php:68
  * @route '/dashboard/transactions'
  */
 destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -202,7 +202,7 @@ destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:76
+ * @see app/Http/Controllers/TransactionController.php:68
  * @route '/dashboard/transactions'
  */
 const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -217,7 +217,7 @@ const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =
 
 /**
  * @see \App\Http\Controllers\TransactionController::destroy
- * @see app/Http/Controllers/TransactionController.php:76
+ * @see app/Http/Controllers/TransactionController.php:68
  * @route '/dashboard/transactions'
  */
 destroyForm.delete = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
