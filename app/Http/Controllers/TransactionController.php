@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Transaction\StoreTransactionRequest;
+use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
 {
@@ -26,24 +26,12 @@ class TransactionController extends Controller
         return redirect(route('accounts.show', $account));
     }
 
-    public function update(int $transactionId, Request $request)
+    public function update(UpdateTransactionRequest $request, int $transactionId)
     {
         $transaction = Transaction::findOrFail($transactionId);
         $account = $transaction->account;
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'description' => [Rule::excludeIf(empty($request['description'])), 'string', 'max:500'],
-            'amount' => ['required', 'decimal:0,2'],
-            'custom_id' => [
-                Rule::excludeIf(empty($request['custom_id'])),
-                'min:3',
-                'max:255',
-                'string',
-                Rule::unique('App\Models\Transaction', 'custom_id')->ignore($transactionId),
-            ],
-            'date' => ['required'],
-        ]);
+        $validated = $request->validated();
 
         $transaction->update($validated);
 
