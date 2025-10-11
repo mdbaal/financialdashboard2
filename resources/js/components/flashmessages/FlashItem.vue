@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {FlashItemProps} from "@/types";
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import {usePage} from "@inertiajs/vue3";
 
 const page = usePage();
@@ -25,11 +25,22 @@ const itemStyle = computed(() => {
 
 const closed = ref(false);
 
-if (props.duration >= 0) {
+function setTimer(duration: number) {
   setTimeout(() => {
     closed.value = true;
-  }, props.duration);
+  }, duration);
 }
+
+if (props.duration >= 0) {
+  setTimer(props.duration);
+}
+
+watch(() => page.props.flash, () => {
+  closed.value = false;
+  if (props.duration >= 0) {
+    setTimer(props.duration);
+  }
+})
 </script>
 
 <template>
