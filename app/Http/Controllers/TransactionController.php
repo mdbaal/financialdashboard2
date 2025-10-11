@@ -23,7 +23,8 @@ class TransactionController extends Controller
 
         $account->updateBalance($validated['amount']);
 
-        return redirect(route('accounts.show', $account));
+        return redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Transaction created successfully.', 'duration' => 5000]);
     }
 
     public function update(UpdateTransactionRequest $request, int $transactionId)
@@ -39,7 +40,8 @@ class TransactionController extends Controller
             $account->updateBalance($transaction->amount, $transaction->getPrevious()['amount'], true);
         }
 
-        return redirect(route('accounts.show', $account));
+        return redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Transaction updated successfully.', 'duration' => 5000]);
     }
 
     public function destroy(DestroyTransactionRequest $request)
@@ -53,6 +55,7 @@ class TransactionController extends Controller
         $transaction->delete();
         $account->updateBalance($amount, 0, false, true);
 
-        return redirect(route('accounts.show', $account));
+        return redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Transaction deleted successfully.', 'duration' => 5000]);
     }
 }
