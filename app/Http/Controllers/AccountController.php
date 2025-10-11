@@ -3,106 +3,82 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CurrencyTypes;
+use App\Http\Requests\Account\DestroyAccountRequest;
+use App\Http\Requests\Account\StoreAccountRequest;
+use App\Http\Requests\Account\UpdateAccountRequest;
 use App\Models\Account;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Validation\Rule;
 
 class AccountController extends Controller
 {
-    
-    public function index(){
+    public function index()
+    {
         $accounts = Auth::user()->accounts;
-        $currencyOptions = $this->getCurrencyOptions();
+        $currencyOptions = CurrencyTypes::getCurrencyOptions();
 
         return Inertia::render('account/Accounts',
-        [
-            'userAccounts' => $accounts,
-            'currencyOptions' => $currencyOptions  
-        ]);
+            [
+                'userAccounts' => $accounts,
+                'currencyOptions' => $currencyOptions,
+            ]);
     }
 
-    public function show(Account $account){
+    public function show(Account $account)
+    {
         $transactions = $account->transactions;
 
         return Inertia::render('account/Show',
-        [
-            'accountViewed' => $account,
-            'transactions' => $transactions,
-            'currencyOptions' => $this->getCurrencyOptions()
-        ]);
+            [
+                'accountViewed' => $account,
+                'transactions' => $transactions,
+                'currencyOptions' => CurrencyTypes::getCurrencyOptions(),
+            ]);
     }
 
-
-    public function store(Request $request){
-        $validated = $request->validate([
-            'account_name' => 'required|alpha_num|max:50|unique:App\Models\Account',
-            'account_number' => 'required|alpha_num|max:50|unique:App\Models\Account',
-            'currency' => ['required', Rule::in($this->getCurrencyOptions("value"))],
-        ]);
-
+    public function store(StoreAccountRequest $request)
+    {
+        $validated = $request->validated();
         $validated['balance'] = 0;
         $validated['user_id'] = Auth::id();
 
         Account::create($validated);
-        
-        return redirect(route('accounts'));
+
+        return redirect(route('accounts'))
+            ->with('success', ['message' => 'Account created successfully.', 'duration' => 5000]);
     }
 
-    public function update(int $id, Request $request){
+    public function update(UpdateAccountRequest $request, int $id)
+    {
         $account = Account::findOrFail($id);
 
-        $validated = $request->validate([
-            'account_name' => [
-                'required',
-                'string',
-                'max:50',
-                Rule::unique('App\Models\Account')->ignore($account->id)],
-            'account_number' => [
-                'required',
-                'alpha_num',
-                'max:50',
-                Rule::unique('App\Models\Account')->ignore($account->id)],
-            'currency' => ['required', Rule::in($this->getCurrencyOptions("value"))],
-        ]);
+        $validated = $request->validated();
 
         $account->account_name = $validated['account_name'];
         $account->account_number = $validated['account_number'];
         $account->currency = $validated['currency'];
 
-        if($account->isDirty())
-            $account->save();
+        if ($account->isDirty('currency')) {
+            $account->transactions()->update(['currency' => $account->currency]);
+        }
 
-        redirect(route('account.show',$account));
+        if ($account->isDirty()) {
+            $account->save();
+        }
+
+        redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Account updated successfully.', 'duration' => 5000]);
+
     }
 
-    public function destroy(Request $request){
-        $validated = $request->validate([
-            'id' => 'required|exists:App\Models\Account,id'
-        ]);
+    public function destroy(DestroyAccountRequest $request)
+    {
+        $validated = $request->validated();
 
         Account::find($validated['id'])->delete();
 
-        return redirect(route('accounts'));
-    }
+        return redirect(route('accounts'))
+            ->with('success', ['message' => 'Account deleted successfully.', 'duration' => 5000]);
 
-    private function getCurrencyOptions($type = null){
-        if($type == "key"){
-            return array_map(function($enum){
-                return $enum->name;
-            },CurrencyTypes::cases());
-        }
-
-        if($type == "value"){
-            return array_map(function($enum){
-                return $enum->value;
-            },CurrencyTypes::cases());
-        }
-
-        return array_map(function($enum){
-            return ['name' => $enum->name, 'value' => $enum->value];
-        },CurrencyTypes::cases());
     }
 }

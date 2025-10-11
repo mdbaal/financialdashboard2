@@ -2,83 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transaction\DestroyTransactionRequest;
+use App\Http\Requests\Transaction\StoreTransactionRequest;
+use App\Http\Requests\Transaction\UpdateTransactionRequest;
 use App\Models\Account;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
 {
-    public function store(Request $request, int $account_id){
-        $account = Account::findOrFail($account_id);
+    public function store(StoreTransactionRequest $request)
+    {
+        $validated = $request->validated();
 
-        $validated = $request->validate([
-            'name' => ['required', 'string','max:255','min:3'],
-            'description' => [Rule::excludeIf(empty($request['description'])), 'string', 'max:500',],
-            'amount' => ['required' ,'decimal:0,2'],
-            'custom_id' => [
-                Rule::excludeIf(empty($request['custom_id'])),
-                'min:3',
-                'max:255',
-                'string',
-                Rule::unique('App\Models\Transaction','custom_id')],
-            'date' => ['required']
-        ]);
+        $account = Account::find($validated['account_id']);
 
         $validated['currency'] = $account->currency;
         $validated['account_id'] = $account->id;
 
         Transaction::create($validated);
 
-        $account->updateBalance();
+        $account->updateBalance($validated['amount']);
 
-        return redirect(route('accounts.show', $account));
+        return redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Transaction created successfully.', 'duration' => 5000]);
     }
 
-    public function update(int $accountId, int $transactionId, Request $request){
-        $account = Account::findOrFail($accountId);
+    public function update(UpdateTransactionRequest $request, int $transactionId)
+    {
         $transaction = Transaction::findOrFail($transactionId);
+        $account = $transaction->account;
 
-        $validated = $request->validate([
-            'name' => ['required', 'string','max:255','min:3'],
-            'description' => [Rule::excludeIf(empty($request['description'])),'string','max:500',],
-            'amount' => ['required', 'decimal:0,2'],
-            'custom_id' => [
-                Rule::excludeIf(empty($request['custom_id'])),
-                'min:3',
-                'max:255',
-                'string',
-                Rule::unique('App\Models\Transaction','custom_id')->ignore($transactionId)
-            ],
-            'date' => ['required']
-        ]);
+        $validated = $request->validated();
 
-        $transaction->name = $validated['name'];
-        $transaction->description = $validated['description'] ?? '';
-        $transaction->amount = $validated['amount'];
-        $transaction->custom_id = $validated['custom_id'] ?? '';
-        $transaction->date = $validated['date'];
+        $transaction->update($validated);
 
-        if($transaction->isDirty())
-            $transaction->save();
+        if ($transaction->wasChanged('amount')) {
+            $account->updateBalance($transaction->amount, $transaction->getPrevious()['amount'], true);
+        }
 
-        if($transaction->wasChanged('amount'))
-            $account->updateBalance();
-
-        return redirect(route('accounts.show', $account));
+        return redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Transaction updated successfully.', 'duration' => 5000]);
     }
 
-    public function destroy(Request $request, int $account_id){
-        $validated = $request->validate([
-            'id' => 'required|exists:App\Models\Transaction,id'
-        ]);
+    public function destroy(DestroyTransactionRequest $request)
+    {
+        $validated = $request->validated();
 
-        Transaction::find($validated['id'])->delete();
+        $transaction = Transaction::find($validated['id']);
+        $account = $transaction->account;
 
-        $account = Account::find($account_id);
-        $account->updateBalance();
+        $amount = $transaction->amount;
+        $transaction->delete();
+        $account->updateBalance($amount, 0, false, true);
 
-        return redirect(route('accounts.show', $account));
+        return redirect(route('accounts.show', $account))
+            ->with('success', ['message' => 'Transaction deleted successfully.', 'duration' => 5000]);
     }
-
 }

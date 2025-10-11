@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CurrencyTypes: String
+enum CurrencyTypes: string
 {
     case USD = '$';
     case EUR = '€';
@@ -58,4 +58,23 @@ enum CurrencyTypes: String
     case OMR = 'ر.ع.';
     case JOD = 'د.ا';
     case TND = 'د.ت';
+
+    public static function getCurrencyOptions($type = null): array
+    {
+        if ($type == 'key') {
+            return array_map(function ($enum) {
+                return $enum->name;
+            }, self::cases());
+        }
+
+        if ($type == 'value') {
+            return array_map(function ($enum) {
+                return $enum->value;
+            }, self::cases());
+        }
+
+        return array_map(function ($enum) {
+            return ['name' => $enum->name, 'value' => $enum->value];
+        }, self::cases());
+    }
 }
