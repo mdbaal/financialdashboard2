@@ -36,7 +36,7 @@ const dialogOpen = ref(false);
     <DialogContent>
       <DialogHeader>
         <DialogTitle>
-          Create new Account
+          Create Account
         </DialogTitle>
         <DialogDescription>
           Use the form to create a new account
@@ -69,7 +69,7 @@ const dialogOpen = ref(false);
           <InputError :message="errors['currency']"/>
         </div>
         <div class="justify-end flex">
-          <Button type="submit" variant="secondary">Save</Button>
+          <Button type="submit" variant="secondary">Create</Button>
         </div>
       </Form>
     </DialogContent>
