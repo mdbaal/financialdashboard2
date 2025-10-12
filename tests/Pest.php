@@ -11,10 +11,22 @@
 |
 */
 
-pest()->extend(Tests\TestCase::class)
- // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature');
+// pest()->extend(Tests\TestCase::class)
+// //    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+//    ->in('Feature', 'Browser');
 
+pest()->extend(Tests\TestCase::class)
+    ->group('auth')
+    ->in('Feature/Auth');
+
+pest()->extend(Tests\TestCase::class)
+    ->group('settings')
+    ->in('Feature/Settings');
+
+pest()->extend(Tests\TestCase::class)
+    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+    ->group('browser')
+    ->in('Feature/Browser');
 /*
 |--------------------------------------------------------------------------
 | Expectations
