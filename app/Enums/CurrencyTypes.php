@@ -12,10 +12,10 @@ enum CurrencyTypes: string
     case AUD = 'A$';
     case CAD = 'C$';
     case NZD = 'NZ$';
-    case CNY = '¥';
-    case SEK = 'kr';
-    case NOK = 'kr';
-    case MXN = '$';
+    case CNY = 'CNY ';
+    case SEK = 'SEK ';
+    case NOK = 'NOK ';
+    case MXN = 'MXN ';
     case INR = '₹';
     case RUB = '₽';
     case ZAR = 'R';
@@ -25,7 +25,7 @@ enum CurrencyTypes: string
     case KRW = '₩';
     case TRY = '₺';
     case PLN = 'zł';
-    case DKK = 'kr';
+    case DKK = 'DKK ';
     case THB = '฿';
     case HUF = 'Ft';
     case CZK = 'Kč';
@@ -35,13 +35,13 @@ enum CurrencyTypes: string
     case TWD = 'NT$';
     case SAR = 'ر.س';
     case AED = 'د.إ';
-    case COP = '$';
-    case CLP = '$';
+    case COP = 'COP ';
+    case CLP = 'CLP ';
     case PKR = '₨';
     case QAR = 'ر.ق';
     case KWD = 'د.ك';
     case VND = '₫';
-    case EGP = '£';
+    case EGP = 'EGP';
     case IDR = 'Rp';
     case MAD = 'د.م.';
     case RON = 'lei';
@@ -76,5 +76,10 @@ enum CurrencyTypes: string
         return array_map(function ($enum) {
             return ['name' => $enum->name, 'value' => $enum->value];
         }, self::cases());
+    }
+
+    public static function getCurrencyValue($currency): string
+    {
+        return array_find(self::cases(), fn ($enum) => $enum->name === $currency)->value;
     }
 }

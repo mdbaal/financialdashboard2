@@ -61,7 +61,7 @@ const dialogOpen = ref(false);
               <SelectValue placeholder="Select a currency"/>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem v-for="currency in currencyOptions" :key="currency.name" :value="currency.value">
+              <SelectItem v-for="currency in currencyOptions" :key="currency.name" :value="currency.name">
                 {{ currency.name }}
               </SelectItem>
             </SelectContent>

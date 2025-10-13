@@ -56,7 +56,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <Link :href="show(account.id)" class="block">{{ account.account_name }}</Link>
               </TableCell>
               <TableCell>{{ account.account_number }}</TableCell>
-              <TableCell>{{ account.currency + account.balance }}</TableCell>
+              <TableCell>{{ account.currency_character + account.balance }}</TableCell>
               <TableCell class="w-[10px]">
                 <Form :action="destroy()">
                   <input name="id" hidden :value="account.id"/>

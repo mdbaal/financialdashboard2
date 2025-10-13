@@ -49,9 +49,8 @@ const transactionViewed = ref(props.transactions[0]);
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-10 h-full">
       <div class="flex my-5 ">
-        <h2 class="text-2xl">{{
-            accountViewed.account_name + " " + accountViewed.currency + accountViewed.balance
-          }}</h2>
+        <h2 class="text-2xl">
+          {{ accountViewed.account_name + " " + accountViewed.currency_character + accountViewed.balance }}</h2>
       </div>
       <div>
         <EditAccountForm :current-account="accountViewed" :currency-options="currencyOptions"/>
@@ -82,7 +81,7 @@ const transactionViewed = ref(props.transactions[0]);
                 {{ transaction.name }}
               </TableCell>
               <TableCell>{{ transaction.description }}</TableCell>
-              <TableCell>{{ transaction.currency + transaction.amount }}</TableCell>
+              <TableCell>{{ accountViewed.currency_character + transaction.amount }}</TableCell>
               <TableCell>{{ transaction.custom_id }}</TableCell>
               <TableCell>{{ transaction.date }}</TableCell>
               <TableCell>

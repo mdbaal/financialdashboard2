@@ -27,7 +27,7 @@ class StoreAccountRequest extends FormRequest
         return [
             'account_name' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/', 'max:50', 'unique:App\Models\Account'],
             'account_number' => ['required', 'alpha_num', 'max:50', 'unique:App\Models\Account'],
-            'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('value'))],
+            'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('key'))],
         ];
     }
 }

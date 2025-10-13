@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User;
 
 return new class extends Migration
 {
@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('account_name')->unique();
             $table->string('account_number')->unique();
             $table->decimal('balance')->default(0);
-            $table->string('currency', 5)->default('€');
+            $table->string('currency', 5)->default('EUR');
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
