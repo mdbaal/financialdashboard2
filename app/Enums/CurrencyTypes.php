@@ -77,4 +77,9 @@ enum CurrencyTypes: string
             return ['name' => $enum->name, 'value' => $enum->value];
         }, self::cases());
     }
+
+    public static function getCurrencyValue($currency): string
+    {
+        return self::from($currency)->value;
+    }
 }
