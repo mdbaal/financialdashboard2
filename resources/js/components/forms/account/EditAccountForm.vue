@@ -41,10 +41,10 @@ const dialogOpen = ref(false);
     <DialogContent>
       <DialogHeader>
         <DialogTitle>
-          Edit Account
+          Edit account
         </DialogTitle>
         <DialogDescription>
-          Use the form to create a new account
+          Use the form to edit your account
         </DialogDescription>
       </DialogHeader>
 
