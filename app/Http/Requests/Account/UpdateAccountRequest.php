@@ -36,7 +36,7 @@ class UpdateAccountRequest extends FormRequest
                 'alpha_num',
                 'max:50',
                 Rule::unique('App\Models\Account')->ignore($this->route('account'))],
-            'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('value'))],
+            'currency' => ['required', Rule::in(CurrencyTypes::getCurrencyOptions('key'))],
         ];
     }
 }
