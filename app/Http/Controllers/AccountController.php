@@ -40,6 +40,7 @@ class AccountController extends Controller
     {
         $validated = $request->validated();
         $validated['balance'] = 0;
+        $validated['currency_character'] = CurrencyTypes::getCurrencyValue($validated['currency']);
         $validated['user_id'] = Auth::id();
 
         Account::create($validated);
@@ -57,10 +58,7 @@ class AccountController extends Controller
         $account->account_name = $validated['account_name'];
         $account->account_number = $validated['account_number'];
         $account->currency = $validated['currency'];
-
-        if ($account->isDirty('currency')) {
-            $account->transactions()->update(['currency' => $account->currency]);
-        }
+        $account->currency_character = CurrencyTypes::getCurrencyValue($validated['currency']);
 
         if ($account->isDirty()) {
             $account->save();

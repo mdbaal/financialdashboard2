@@ -15,8 +15,6 @@ class TransactionController extends Controller
         $validated = $request->validated();
 
         $account = Account::find($validated['account_id']);
-
-        $validated['currency'] = $account->currency;
         $validated['account_id'] = $account->id;
 
         Transaction::create($validated);

@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\Account;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Carbon;
-use App\Models\Account;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('amount', 8, 2);
-            $table->string('currency',5)->default('€');
             $table->foreignIdFor(Account::class)->constrained()->cascadeOnDelete();
             $table->string('custom_id')->unique()->nullable();
             $table->date('date')->default(Carbon::now());

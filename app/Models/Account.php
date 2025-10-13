@@ -17,6 +17,7 @@ class Account extends Model
         'account_number',
         'balance',
         'currency',
+        'currency_character',
         'user_id',
     ];
 
@@ -30,7 +31,7 @@ class Account extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function updateBalance($amount, $oldAmount = 0, $fromEdit = false, $fromDelete = false)
+    public function updateBalance($amount, $oldAmount = 0, $fromEdit = false, $fromDelete = false): void
     {
         $this->last_balance = $this->balance;
 
