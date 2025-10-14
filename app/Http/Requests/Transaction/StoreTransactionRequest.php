@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Transaction;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -33,8 +34,14 @@ class StoreTransactionRequest extends FormRequest
                 'max:255',
                 'string',
                 Rule::unique('App\Models\Transaction', 'custom_id')],
-            'date' => ['required'],
+            'date' => ['required', Rule::date()],
             'account_id' => 'required|exists:App\Models\Account,id',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $date = array_reverse(explode('/', $this['date']));
+        $this->merge(['date' => Carbon::create($date[0], $date[1], $date[2])]);
     }
 }

@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Transaction>
+ * @extends Factory<Transaction>
  */
 class TransactionFactory extends Factory
 {
@@ -18,10 +19,9 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => "Test uitgave",
+            'name' => 'Test Transaction',
             'description' => fake()->sentence(),
-            'amount' => fake()->randomFloat(2,-100,100),
-            'currency' => '€',
+            'amount' => fake()->randomFloat(2, -100, 100),
             'account_id' => 1,
             'date' => Carbon::now(),
         ];

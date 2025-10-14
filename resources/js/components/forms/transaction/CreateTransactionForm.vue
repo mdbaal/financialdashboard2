@@ -46,7 +46,7 @@ const calenderFormat = (date: Date) => {
 <template>
   <Dialog v-model:open="dialogOpen">
     <DialogTrigger>
-      <Button variant="secondary">Create Transaction</Button>
+      <Button variant="secondary">Create transaction</Button>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>

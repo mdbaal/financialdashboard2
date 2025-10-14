@@ -35,7 +35,7 @@ test('Authenticated user can access an account', function () {
     $page = visit('/dashboard/accounts');
 
     $page->click($account->account_name)
-        ->assertSee($account->account_name.' '.$account->currency.$account->balance);
+        ->assertSee($account->account_name.' '.$account->currency_character.$account->balance);
 });
 
 test('Authenticated user can edit an account', function () {
