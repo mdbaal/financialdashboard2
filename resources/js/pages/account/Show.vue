@@ -10,6 +10,7 @@ import EditAccountForm from '@/components/forms/account/EditAccountForm.vue';
 import CreateTransactionForm from '@/components/forms/transaction/CreateTransactionForm.vue';
 import EditTransactionForm from '@/components/forms/transaction/EditTransactionForm.vue';
 import {ref} from 'vue';
+import {formatDate} from "date-fns";
 
 const props = defineProps({
   accountViewed: {
@@ -83,7 +84,7 @@ const transactionViewed = ref(props.transactions[0]);
               <TableCell>{{ transaction.description }}</TableCell>
               <TableCell>{{ accountViewed.currency_character + transaction.amount }}</TableCell>
               <TableCell>{{ transaction.custom_id }}</TableCell>
-              <TableCell>{{ transaction.date }}</TableCell>
+              <TableCell>{{ formatDate(transaction.date, 'dd/MM/Y') }}</TableCell>
               <TableCell>
                 <Form :action="destroy(accountViewed.id)">
                   <input name="id" hidden :value="transaction.id"/>

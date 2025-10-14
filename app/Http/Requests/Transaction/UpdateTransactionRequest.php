@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Transaction;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -34,7 +35,14 @@ class UpdateTransactionRequest extends FormRequest
                 'string',
                 Rule::unique('App\Models\Transaction', 'custom_id')->ignore($this->route('transaction')),
             ],
-            'date' => ['required'],
+            'date' => ['required', Rule::date()],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $date = array_reverse(explode('/', $this['date']));
+        $this->merge(['date' => Carbon::create($date[0], $date[1], $date[2])]);
+
     }
 }
