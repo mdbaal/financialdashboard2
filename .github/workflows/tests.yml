@@ -39,4 +39,4 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
       - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-        run: ./vendor/bin/pest --compact
+        run: ./vendor/bin/pest --compact --ignore-group=browser --parallel
