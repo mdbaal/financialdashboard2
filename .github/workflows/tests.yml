@@ -32,4 +32,4 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
-        run: ./vendor/bin/pest --compact --exclude-group=browser
+        run: ./vendor/bin/pest --compact --exclude-group=browser --parallel
