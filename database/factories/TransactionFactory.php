@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Account;
+use App\Models\Category;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,8 +24,9 @@ class TransactionFactory extends Factory
             'name' => 'Test Transaction',
             'description' => fake()->sentence(),
             'amount' => fake()->randomFloat(2, -100, 100),
-            'account_id' => 1,
+            'account_id' => Account::all()->first() ?? Account::factory(),
             'date' => Carbon::now(),
+            'category_id' => Category::factory(),
         ];
     }
 }
