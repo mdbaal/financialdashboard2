@@ -33,7 +33,7 @@ jobs:
 
       - name: Get Composer Cache Dir
         id: composer-cache-dir
-        run: echo dir=$(composer config cache-files-ri) >> $GITHUB_OUTPUT
+        run: echo dir=$(composer config cache-files-dir) >> $GITHUB_OUTPUT
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v4
@@ -69,4 +69,4 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-        run: ./vendor/bin/pest --compact --ignore-group=browser --parallel
+        run: ./vendor/bin/pest --compact --exclude-group=browser --parallel
