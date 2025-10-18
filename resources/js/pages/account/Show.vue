@@ -46,7 +46,7 @@ const breadcrumbs: BreadcrumbItem[] = [
   }
 ];
 
-const dialogOpen = ref(false);
+const transactionEditOpen = ref(false);
 const transactionViewed = ref(props.transactions[0]);
 </script>
 
@@ -85,7 +85,7 @@ const transactionViewed = ref(props.transactions[0]);
           </TableHeader>
           <TableBody>
             <TableRow v-for="transaction in transactions" :key="transaction.id">
-              <TableCell class="font-medium" @click="transactionViewed=transaction;dialogOpen=true">
+              <TableCell class="font-medium" @click="transactionViewed=transaction;transactionEditOpen=true">
                 {{ transaction.name }}
               </TableCell>
               <TableCell>{{ transaction.description }}</TableCell>
@@ -106,7 +106,7 @@ const transactionViewed = ref(props.transactions[0]);
         </Table>
         <EditTransactionForm
             v-if="transactionViewed"
-            v-model="dialogOpen"
+            v-model="transactionEditOpen"
             :current-account="accountViewed"
             :current-transaction="transactionViewed"
             :categories="categories"
