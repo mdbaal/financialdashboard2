@@ -31,8 +31,9 @@ class AccountController extends Controller
         return Inertia::render('account/Show',
             [
                 'accountViewed' => $account,
-                'transactions' => $transactions,
+                'transactions' => $transactions->load('category'),
                 'currencyOptions' => CurrencyTypes::getCurrencyOptions(),
+                'categories' => Auth::user()->categories,
             ]);
     }
 

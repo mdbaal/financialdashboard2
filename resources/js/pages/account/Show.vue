@@ -21,7 +21,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  currencyOptions: Object,
+  currencyOptions: {
+    type: Object,
+    required: true
+  },
+  categories: {
+    type: Object,
+    required: true
+  }
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -41,7 +48,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const dialogOpen = ref(false);
 const transactionViewed = ref(props.transactions[0]);
-
 </script>
 
 <template>
@@ -60,7 +66,7 @@ const transactionViewed = ref(props.transactions[0]);
 
       <div class="flex flex-col gap-2 mt-10">
         <div>
-          <CreateTransactionForm :current-account="accountViewed"></CreateTransactionForm>
+          <CreateTransactionForm :current-account="accountViewed" :categories="categories"></CreateTransactionForm>
         </div>
         <Table>
           <TableCaption>Transactions</TableCaption>
@@ -71,6 +77,7 @@ const transactionViewed = ref(props.transactions[0]);
               <TableHead>Amount</TableHead>
               <TableHead>Custom Identifier</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>Category</TableHead>
               <TableHead>
                 <Ellipsis/>
               </TableHead>
@@ -85,6 +92,7 @@ const transactionViewed = ref(props.transactions[0]);
               <TableCell>{{ accountViewed.currency_character + transaction.amount }}</TableCell>
               <TableCell>{{ transaction.custom_id }}</TableCell>
               <TableCell>{{ formatDate(transaction.date, 'dd/MM/Y') }}</TableCell>
+              <TableCell>{{ transaction.category.name }}</TableCell>
               <TableCell>
                 <Form :action="destroy(accountViewed.id)">
                   <input name="id" hidden :value="transaction.id"/>
@@ -101,6 +109,7 @@ const transactionViewed = ref(props.transactions[0]);
             v-model="dialogOpen"
             :current-account="accountViewed"
             :current-transaction="transactionViewed"
+            :categories="categories"
         />
       </div>
     </div>

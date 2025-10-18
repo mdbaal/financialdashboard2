@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('color', 7)->default('#3b3b3b');
-            $table->string('other_names')->default('');
             $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
         });
     }

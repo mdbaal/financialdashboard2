@@ -36,6 +36,7 @@ class UpdateTransactionRequest extends FormRequest
                 Rule::unique('App\Models\Transaction', 'custom_id')->ignore($this->route('transaction')),
             ],
             'date' => ['required', Rule::date()],
+            'category_id' => ['required', 'exists:App\Models\Category,id'],
         ];
     }
 

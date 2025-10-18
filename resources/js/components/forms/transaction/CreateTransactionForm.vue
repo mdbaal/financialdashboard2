@@ -91,8 +91,8 @@ const calenderFormat = (date: Date) => {
           <InputError :message="errors['date']"/>
         </div>
         <div class="flex flex-col gap-2">
-          <Label for="category">Category</Label>
-          <Select name="category">
+          <Label for="category_id">Category</Label>
+          <Select name="category_id">
             <SelectTrigger>
               <SelectValue placeholder="Select a category"/>
             </SelectTrigger>
@@ -106,7 +106,7 @@ const calenderFormat = (date: Date) => {
               </SelectItem>
             </SelectContent>
           </Select>
-          <InputError :message="errors['category']"/>
+          <InputError :message="errors['category_id']"/>
         </div>
         <input type="hidden" name="account_id" :value="currentAccount.id"/>
         <div class="justify-end flex">

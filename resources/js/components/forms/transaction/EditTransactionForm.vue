@@ -103,8 +103,8 @@ const calenderFormat = (date: Date) => {
           <InputError :message="errors['date']"/>
         </div>
         <div class="flex flex-col gap-2">
-          <Label for="category">Category</Label>
-          <Select name="category" :model-value="currentTransaction.category_id">
+          <Label for="category_id">Category</Label>
+          <Select name="category_id" :model-value="currentTransaction.category_id">
             <SelectTrigger>
               <SelectValue placeholder="Select a category"/>
             </SelectTrigger>
@@ -112,13 +112,12 @@ const calenderFormat = (date: Date) => {
               <SelectItem v-for="category in categories"
                           :key="category.name"
                           :value="category.id"
-                          :class="'bg-[' + category.color + ']'"
               >
                 {{ category.name }}
               </SelectItem>
             </SelectContent>
           </Select>
-          <InputError :message="errors['category']"/>
+          <InputError :message="errors['category_id']"/>
         </div>
         <div class="flex justify-between">
           <Button type="button" variant="secondary" @click="model=false">Cancel</Button>

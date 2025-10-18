@@ -187,7 +187,7 @@ show.form = showForm
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:39
+* @see app/Http/Controllers/AccountController.php:40
 * @route '/dashboard/accounts'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -202,7 +202,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:39
+* @see app/Http/Controllers/AccountController.php:40
 * @route '/dashboard/accounts'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -211,7 +211,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:39
+* @see app/Http/Controllers/AccountController.php:40
 * @route '/dashboard/accounts'
 */
 store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -221,7 +221,7 @@ store.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:39
+* @see app/Http/Controllers/AccountController.php:40
 * @route '/dashboard/accounts'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -236,7 +236,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\AccountController::store
-* @see app/Http/Controllers/AccountController.php:39
+* @see app/Http/Controllers/AccountController.php:40
 * @route '/dashboard/accounts'
 */
 storeForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -253,7 +253,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\AccountController::update
-* @see app/Http/Controllers/AccountController.php:52
+* @see app/Http/Controllers/AccountController.php:53
 * @route '/dashboard/accounts/{account}'
 */
 export const update = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -268,7 +268,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\AccountController::update
-* @see app/Http/Controllers/AccountController.php:52
+* @see app/Http/Controllers/AccountController.php:53
 * @route '/dashboard/accounts/{account}'
 */
 update.url = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -295,7 +295,7 @@ update.url = (args: { account: string | number } | [account: string | number ] |
 
 /**
 * @see \App\Http\Controllers\AccountController::update
-* @see app/Http/Controllers/AccountController.php:52
+* @see app/Http/Controllers/AccountController.php:53
 * @route '/dashboard/accounts/{account}'
 */
 update.patch = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -305,7 +305,7 @@ update.patch = (args: { account: string | number } | [account: string | number ]
 
 /**
 * @see \App\Http\Controllers\AccountController::update
-* @see app/Http/Controllers/AccountController.php:52
+* @see app/Http/Controllers/AccountController.php:53
 * @route '/dashboard/accounts/{account}'
 */
 const updateForm = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -320,7 +320,7 @@ const updateForm = (args: { account: string | number } | [account: string | numb
 
 /**
 * @see \App\Http\Controllers\AccountController::update
-* @see app/Http/Controllers/AccountController.php:52
+* @see app/Http/Controllers/AccountController.php:53
 * @route '/dashboard/accounts/{account}'
 */
 updateForm.patch = (args: { account: string | number } | [account: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -337,7 +337,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:72
+* @see app/Http/Controllers/AccountController.php:73
 * @route '/dashboard/accounts'
 */
 export const destroy = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -352,7 +352,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:72
+* @see app/Http/Controllers/AccountController.php:73
 * @route '/dashboard/accounts'
 */
 destroy.url = (options?: RouteQueryOptions) => {
@@ -361,7 +361,7 @@ destroy.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:72
+* @see app/Http/Controllers/AccountController.php:73
 * @route '/dashboard/accounts'
 */
 destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -371,7 +371,7 @@ destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:72
+* @see app/Http/Controllers/AccountController.php:73
 * @route '/dashboard/accounts'
 */
 const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -386,7 +386,7 @@ const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =
 
 /**
 * @see \App\Http\Controllers\AccountController::destroy
-* @see app/Http/Controllers/AccountController.php:72
+* @see app/Http/Controllers/AccountController.php:73
 * @route '/dashboard/accounts'
 */
 destroyForm.delete = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
