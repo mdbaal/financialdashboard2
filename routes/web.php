@@ -23,6 +23,8 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard/')->group(function ()
     Route::patch('transactions/{transaction}', [TransactionController::class, 'update'])->name('transactions.update');
     Route::delete('transactions', [TransactionController::class, 'destroy'])->name('transactions.destroy');
     Route::delete('transactions/', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+
+    Route::get('categories/', [CategoryController::class, 'index'])->name('categories.index');
 });
 
 require __DIR__.'/settings.php';
