@@ -72,7 +72,7 @@ const dialogOpen = ref(false);
         </div>
         <div class="flex flex-col gap-2">
           <Label for="currency">Currency</Label>
-          <Select name="currency" :multiple="false" v-model="currentAccount.currency">
+          <Select name="currency" :multiple="false" :model-value="currentAccount.currency">
             <SelectTrigger>
               <SelectValue>{{ currentAccount.currency }}</SelectValue>
             </SelectTrigger>

@@ -12,6 +12,7 @@ import {Label} from '@/components/ui/label';
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 const props = defineProps({
   currentAccount: {
@@ -22,6 +23,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  categories: {
+    type: Object,
+    requited: true
+  }
 });
 
 const calenderValue = ref<Date>((new Date(props.currentTransaction.date)));
@@ -96,6 +101,23 @@ const calenderFormat = (date: Date) => {
           <Label for="date">Date</Label>
           <VueDatePicker v-model="calenderValue" :format="calenderFormat" name="date"></VueDatePicker>
           <InputError :message="errors['date']"/>
+        </div>
+        <div class="flex flex-col gap-2">
+          <Label for="category_id">Category</Label>
+          <Select name="category_id" :model-value="currentTransaction.category_id">
+            <SelectTrigger>
+              <SelectValue placeholder="Select a category"/>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem v-for="category in categories"
+                          :key="category.name"
+                          :value="category.id"
+              >
+                {{ category.name }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+          <InputError :message="errors['category_id']"/>
         </div>
         <div class="flex justify-between">
           <Button type="button" variant="secondary" @click="model=false">Cancel</Button>

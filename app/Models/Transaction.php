@@ -18,10 +18,16 @@ class Transaction extends Model
         'account_id',
         'custom_id',
         'date',
+        'category_id',
     ];
 
     public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

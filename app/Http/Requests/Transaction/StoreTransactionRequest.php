@@ -36,6 +36,7 @@ class StoreTransactionRequest extends FormRequest
                 Rule::unique('App\Models\Transaction', 'custom_id')],
             'date' => ['required', Rule::date()],
             'account_id' => 'required|exists:App\Models\Account,id',
+            'category_id' => ['required', 'exists:App\Models\Category,id'],
         ];
     }
 

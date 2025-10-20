@@ -22,11 +22,16 @@ import {Input} from '@/components/ui/input';
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 defineProps({
   currentAccount: {
     type: Object,
     required: true,
+  },
+  categories: {
+    type: Object,
+    requited: true
   }
 });
 
@@ -84,6 +89,24 @@ const calenderFormat = (date: Date) => {
           <Label for="date">Date</Label>
           <VueDatePicker v-model="calenderValue" :format="calenderFormat" name="date"></VueDatePicker>
           <InputError :message="errors['date']"/>
+        </div>
+        <div class="flex flex-col gap-2">
+          <Label for="category_id">Category</Label>
+          <Select name="category_id">
+            <SelectTrigger>
+              <SelectValue placeholder="Select a category"/>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem v-for="category in categories"
+                          :key="category.name"
+                          :value="category.id"
+                          :class="'bg-[' + category.color + ']'"
+              >
+                {{ category.name }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+          <InputError :message="errors['category_id']"/>
         </div>
         <input type="hidden" name="account_id" :value="currentAccount.id"/>
         <div class="justify-end flex">

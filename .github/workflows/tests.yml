@@ -60,7 +60,10 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Node Dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
       - name: Generate key
         run: php artisan key:generate
@@ -69,4 +72,4 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-        run: ./vendor/bin/pest --compact --exclude-group=browser --parallel
+        run: ./vendor/bin/pest --compact --parallel --ci
