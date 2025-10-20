@@ -21,7 +21,6 @@ class CategoryFactory extends Factory
         return [
             'name' => fake()->unique()->word(),
             'color' => fake()->unique()->hexColor(),
-            'other_names' => [],
             'user_id' => User::all()->first() ?? User::factory(),
         ];
     }

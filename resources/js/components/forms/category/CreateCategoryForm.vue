@@ -24,7 +24,7 @@ const dialogOpen = ref(false);
 <template>
   <Dialog v-model:open="dialogOpen">
     <DialogTrigger>
-      <Button variant="secondary">Create category</Button>
+      <Button variant="secondary">New category</Button>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
