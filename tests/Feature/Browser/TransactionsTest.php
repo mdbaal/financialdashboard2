@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Account;
+use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
 use Carbon\Carbon;
@@ -21,6 +22,7 @@ test('Authenticated user can create transactions on an account', function () {
     $page = visit('/dashboard/accounts/1');
     $account = Account::find(1);
     $date = Carbon::create(2025, 10, 2)->format('Y-m-d H:i:s');
+    $category = Category::factory()->create(['name' => 'Any']);
 
     $page->assertSee($account->account_name)
         ->click('Create transaction')
@@ -29,6 +31,8 @@ test('Authenticated user can create transactions on an account', function () {
         ->fill('amount', '10.00')
         ->fill('custom_id', 'test-01')
         ->click('date')->click('2')->click('Select')
+        ->fill('custom_id', 'test-01')
+        ->select('category_id', 'Any')
         ->click('Save');
 
     $account->refresh();
@@ -38,13 +42,15 @@ test('Authenticated user can create transactions on an account', function () {
         ->and($transaction->description)->toBe('Test description')
         ->and($transaction->amount)->toBe(10)
         ->and($transaction->custom_id)->toBe('test-01')
-        ->and($transaction->date)->toBe($date);
+        ->and($transaction->date)->toBe($date)
+        ->and($transaction->category->name)->toBe($category->name);
 });
 
 test('Authenticated user can edit transaction', function () {
     $transaction = Transaction::factory()->create();
     $date = Carbon::create(2025, 10, 2)->format('Y-m-d H:i:s');
     $amount = $transaction->amount;
+    $category = Category::factory()->create(['name' => 'Any']);
 
     $page = visit('/dashboard/accounts/1');
 
@@ -56,6 +62,7 @@ test('Authenticated user can edit transaction', function () {
         ->fill('amount', '10.00')
         ->fill('custom_id', 'test-02')
         ->click('date')->click('2')->click('Select')
+        ->select('category_id', 'Any')
         ->click('Save');
 
     $transaction->refresh();
@@ -64,7 +71,8 @@ test('Authenticated user can edit transaction', function () {
         ->and($transaction->description)->toBe('Test description')
         ->and($transaction->amount)->not->ToBe($amount)
         ->and($transaction->custom_id)->toBe('test-02')
-        ->and($transaction->date)->toBe($date);
+        ->and($transaction->date)->toBe($date)
+        ->and($transaction->category->name)->toBe($category->name);
 });
 
 test('Authenticated user can delete a transaction', function () {
