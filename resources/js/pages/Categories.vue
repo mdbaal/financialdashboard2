@@ -59,7 +59,7 @@ const categoryEditOpen = ref(false);
           </TableHeader>
           <TableBody>
             <TableRow v-for="category in categories" :key="category.id">
-              <TableCell class="font-medium" @click="categoryEditOpen=true">
+              <TableCell class="font-medium" @click="categoryViewed = category;categoryEditOpen=true">
                 {{ category.name }}
               </TableCell>
               <TableCell>

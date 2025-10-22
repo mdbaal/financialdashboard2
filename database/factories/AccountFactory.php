@@ -26,4 +26,14 @@ class AccountFactory extends Factory
             'user_id' => 1,
         ];
     }
+
+    public function configure(): static
+    {
+
+        return $this->afterCreating(function (Account $account) {
+            $account->balance = $account->transactions->sum('amount');
+            $account->save();
+        });
+
+    }
 }
